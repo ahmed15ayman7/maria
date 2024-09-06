@@ -19,7 +19,7 @@ async function fetchNews(searchTerm: string): Promise<NewsItem[]> {
   const response = await axios.get('/api/news', {
     params: { search: searchTerm }, // إرسال نص البحث كمعامل في الطلب
   });
-  return response.data.news;
+  return response.data;
 }
 export default function News() {
   const [searchTerm, setSearchTerm] = useState('');

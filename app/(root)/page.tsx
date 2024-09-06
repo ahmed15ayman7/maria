@@ -11,7 +11,7 @@ import About from "./about/page";
 
 const fetchNews = async () => {
   const { data } = await axios.get("/api/news");
-  return data.news;
+  return data;
 };
 
 export default function HomePage() {
