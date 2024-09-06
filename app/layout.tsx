@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
-
+import InfintyProvider from "../components/providers/InfintyProvider";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
   variable: "--font-geist-sans",
@@ -24,12 +26,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
-      </body>
-    </html>
+    <InfintyProvider>
+      <html lang="en">
+        <body
+          className={`${geistSans.variable} ${geistMono.variable} min-h-screen antialiased`} style={{backgroundImage:"linear-gradient(45deg,#01031c,#01024580,#01031c,#01031c,#2a2b6480,#01031c,#01031c,#01031c,#3c266980)"}}>
+          {children}
+          <ToastContainer />
+        </body>
+      </html>
+    </InfintyProvider>
   );
 }

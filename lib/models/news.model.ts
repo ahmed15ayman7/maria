@@ -1,7 +1,7 @@
 import mongoose, { Schema, Document, model } from 'mongoose';
 
 // Define a TypeScript interface for the news document
-interface INews extends Document {
+export interface INews extends Document {
   title: string;
   content: string;
   author: string;
