@@ -60,7 +60,7 @@ const NewsCard: React.FC<NewsCardProps> = ({ title, content, author, publishedAt
         </div>
       )}
       <motion.div
-        className="bg-gold-500/40 rounded-lg flex max-sm:flex-col max-sm:justify-center flex-row-reverse shadow-lg p-8"
+        className="bg-gold-500 rounded-lg flex max-sm:flex-col max-sm:justify-center flex-row-reverse shadow-lg p-8"
         initial={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.5 }}
@@ -69,7 +69,7 @@ const NewsCard: React.FC<NewsCardProps> = ({ title, content, author, publishedAt
           <img
             src={imageUrl}
             alt={title}
-            className="w-1/2 h-full max-h-[50vh] max-w-[200px] object-cover max-sm:justify-center max-sm:flex max-sm:rounded-t-lg rounded-r-lg"
+            className="w-1/2 h-full max-h-[60vh] max-w-[500px] object-cover max-sm:justify-center max-sm:flex max-sm:rounded-t-lg rounded-r-lg"
           />
         )}
         <div className={!imageUrl ? "" : "p-4 w-1/2"}>

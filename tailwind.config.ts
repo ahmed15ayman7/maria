@@ -11,9 +11,12 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        rakkas: ['Rakkas', 'cursive',"serif"],
+      },
       colors: {
         background: "var(--background)",
-        "gold-500": "#d4aa48",
+        "gold-500": "#e6a34a",
         foreground: "var(--foreground)",
       },
     },

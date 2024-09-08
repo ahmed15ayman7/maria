@@ -1,7 +1,7 @@
 
 const Footer = () => {
   return (
-    <footer className="w-full pt-7 pb-10 bg-[#01031c]/90" id="contact">
+    <footer className="w-full pt-7 pb-10 bg-[#292829]" id="contact">
       {/* background grid */}
     
 

@@ -49,43 +49,43 @@ export default function FeedbackForm() {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}>
-      <h2 className="text-3xl font-bold text-center mb-6 text-gold-500">Your Feedback</h2>
+      <h2 className="text-5xl font-bold mb-8 text-gold-500 text-center "> حجز اعلان</h2>
 
       <label className="mb-4">
-        <span className="block mb-2 font-semibold text-gray-100">Name:</span>
+        <span className="block mb-2 font-semibold text-gray-100">الاسم:</span>
         <input
           type="text"
           className={`border p-3 text-gray-900 rounded-md w-full transition duration-300 ease-in-out ${
             errors.name ? "border-red-500" : "border-gray-300 focus:border-gold-500"
           }`}
           {...register("name")}
-          placeholder="Your Name"
+          placeholder="اكتب اسمك"
         />
         {errors.name && <p className="text-red-500 mt-1">{errors.name.message}</p>}
       </label>
 
       <label className="mb-4">
-        <span className="block mb-2 font-semibold text-gray-100">Email:</span>
+        <span className="block mb-2 font-semibold text-gray-100">البريد الاكتروني:</span>
         <input
           type="email"
           className={`border p-3 rounded-md text-gray-900 w-full transition duration-300 ease-in-out ${
             errors.email ? "border-red-500" : "border-gray-300 focus:border-gold-500"
           }`}
           {...register("email")}
-          placeholder="Your Email"
+          placeholder="اكتب بريدك الاكتروني"
         />
         {errors.email && <p className="text-red-500 mt-1">{errors.email.message}</p>}
       </label>
 
       <label className="mb-4">
-        <span className="block mb-2 font-semibold text-gray-100">Message:</span>
+        <span className="block mb-2 font-semibold text-gray-100">الموضوع:</span>
         <textarea
           className={`border p-3 text-gray-900 rounded-md w-full transition duration-300 ease-in-out ${
             errors.message ? "border-red-500" : "border-gray-300 focus:border-gold-500"
           }`}
           {...register("message")}
           rows={4}
-          placeholder="Your Message"
+          placeholder="اكتب الموضوع"
         />
         {errors.message && <p className="text-red-500 mt-1">{errors.message.message}</p>}
       </label>
@@ -93,7 +93,7 @@ export default function FeedbackForm() {
       <button
         type="submit"
         className="bg-gold-500 text-white py-2 rounded-md hover:bg-gold-600 transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-gold-400 focus:ring-opacity-50">
-        Send
+        ارسال
       </button>
 
    

@@ -4,7 +4,7 @@ import React from 'react'
 
 const page = () => {
   return (
-    <div  className='bg-[#01031c]/50 pt-10'>
+    <div  className='bg-[#292829]/30 pt-10'>
       <FeedbackForm/>
     </div>
   )

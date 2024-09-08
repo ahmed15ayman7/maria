@@ -28,10 +28,12 @@
     "react-dropzone": "^14.2.3",
     "react-hook-form": "^7.53.0",
     "react-image-crop": "^11.0.6",
+    "react-multi-carousel": "^2.8.5",
     "react-toastify": "^10.0.5",
     "swiper": "^11.1.12",
     "tailwind-merge": "^2.5.2",
     "tailwindcss-animate": "^1.0.7",
+    "use-debounce": "^10.0.3",
     "zod": "^3.23.8"
   },
   "devDependencies": {

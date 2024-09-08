@@ -41,15 +41,15 @@ export default function Contact() {
 
   return (
     <motion.div
-      className="min-h-screen flex flex-col items-center justify-center p-8 bg-[#01031c]/50 text-white"
+      className="min-h-screen flex flex-col items-center justify-center p-8 bg-[#292829]/30 text-white"
       initial={{ opacity: 0, x: 50 }}
       animate={{ opacity: 1, x: 0 }}
       transition={{ duration: 1 }}
     >
-      <h2 className="text-5xl font-bold mb-8 text-gold-500">Contact Us</h2>
+      <h2 className="text-5xl font-bold mb-8 text-gold-500">تواصل معنا</h2>
       <form onSubmit={handleSubmit(onSubmit)} className="w-full max-w-md space-y-6">
         <div>
-          <label className="block mb-2 text-sm font-bold">Name</label>
+          <label className="block mb-2 text-sm font-bold">الاسم</label>
           <input
             type="text"
             className={`w-full px-4 py-2 rounded-lg text-gray-800 ${
@@ -61,7 +61,7 @@ export default function Contact() {
           {errors.name && <p className="text-red-500 mt-1">{errors.name.message}</p>}
         </div>
         <div>
-          <label className="block mb-2 text-sm font-bold">Email</label>
+          <label className="block mb-2 text-sm font-bold">البريد الاكتروني</label>
           <input
             type="email"
             className={`w-full px-4 py-2 rounded-lg text-gray-800 ${
@@ -73,7 +73,7 @@ export default function Contact() {
           {errors.email && <p className="text-red-500 mt-1">{errors.email.message}</p>}
         </div>
         <div>
-          <label className="block mb-2 text-sm font-bold">Message</label>
+          <label className="block mb-2 text-sm font-bold">محتوي الرساله</label>
           <textarea
             className={`w-full px-4 py-2 rounded-lg text-gray-800 ${
               errors.message ? "border-red-500" : ""
@@ -91,7 +91,7 @@ export default function Contact() {
           type="submit"
           disabled={loading}
         >
-          {loading ? "Sending..." : "Send Message"}
+          {loading ? "جاري الارسال..." : "إرسال"}
         </motion.button>
       </form>
     </motion.div>

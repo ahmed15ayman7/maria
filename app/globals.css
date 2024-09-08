@@ -1,7 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=Rakkas&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
 :root {
   --foreground: #ffffff;
   --background: #000319;
@@ -38,4 +38,57 @@ body {
   top: 50%;
   right: 10px;
   transform: translateY(-50%);
+}
+.prevEl {
+  /* position: absolute; */
+  /* top: 50%; */
+  /* left: 10px; */
+
+  /* transform: translateY(-50%); */
+  /* background: #ffffff; */
+  /* color: rgb(230 163 74 ); */
+  border-radius: 50%;
+  z-index: 50;
+}
+
+.nextEl {
+  /* position: absolute; */
+  /* top: 50%; */
+  /* right: 10px; */
+  /* transform: translateY(-50%); */
+  /* background: #ffffff; */
+  /* color: rgb(230 163 74 ); */
+  border-radius: 50%;
+  z-index: 5000;
+}
+/* .prevEl{
+  @apply  bg-white text-gold-500 rounded-full absolute top-[50%] right-[10px] z-10 -translate-y-[50%];
+}
+.nextEl{
+  @apply  bg-white text-gold-500 rounded-full absolute top-[50%] left-[10px] z-10 -translate-y-[50%];
+} */
+.navGold::after{
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 0; 
+  width: 50px;
+  height: 10px;
+  transform: translateY(-50%) translateX(-100%);
+  background: #e6a34a;
+}
+.navGold::before{
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: 0; 
+  width: 50px;
+  height: 10px;
+  transform: translateY(-50%) translateX(100%);
+  background: #e6a34a;
+}
+.rakkas-regular {
+  font-family: "Rakkas", serif;
+  font-weight: 400;
+  font-style: normal;
 }

@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
+import SwiperAbout from '@/components/shared/SwiperAbout';
 
 export default function About() {
   const [selectedImage, setSelectedImage] = useState('/test-1.jpeg');
@@ -10,29 +11,30 @@ export default function About() {
 
   return (
     <motion.div
-      className="min-h-screen flex flex-col md:flex-row items-center justify-center p-8 bg-[#01031c]/50"
+      className="min-h-screen flex flex-col md:flex-row gap-10 items-center justify-center p-8 bg-[#292829]/30"
       initial={{ opacity: 0, x: -50 }}
       animate={{ opacity: 1, x: 0 }}
       transition={{ duration: 0.8 }}
     >
-      <div className="flex-1 text-center md:text-left mb-8 md:mb-0 md:mr-8">
-        <h2 className="text-5xl font-bold mb-4 text-gold-500">About Us</h2>
+      <div className="flex-1 text-center md:text-right mb-8 md:mb-0 md:mr-8">
+        <h2 className="text-5xl font-bold mb-4 text-gold-500">من نحن</h2>
         <p className="text-xl text-gray-100 max-w-2xl">
-          We Work Collaboratively With Our Clients To Uncover The Most Effective And Efficient Way To Achieve Their Needs.
+        نحن نعمل بشكل تعاوني مع عملائنا لاكتشاف الطريقة الأكثر فعالية وكفاءة لتحقيق احتياجاتهم.
         </p>
         <p className="text-lg text-gray-200 max-w-2xl mt-4">
-          At Farah Magazine, we believe there is a better way to meet our clients' needs. We're a company that exists to help you achieve more than you ever thought possible.
-          Understanding all the unique touch-points of each client is essential to our business. We focus on building reliable connections, amazing results, and trusted experiences that are as useful as they are memorable.
-          Let's do great things together. We can't wait to work with you.
+        في مجلة مريه، نؤمن بوجود طريقة أفضل لتلبية احتياجات عملائنا. نحن شركة موجودة لمساعدتك على تحقيق أكثر مما كنت تعتقد أنه ممكن.
+إن فهم جميع نقاط الاتصال الفريدة لكل عميل أمر ضروري لأعمالنا. نحن نركز على بناء علاقات موثوقة ونتائج مذهلة وتجارب موثوقة مفيدة ولا تُنسى.
+دعونا نفعل أشياء عظيمة معًا. لا نستطيع الانتظار للعمل معك.
         </p>
       </div>
-      <div className="flex-1">
-        <img
+      <div className="flex-1 w-1/2">
+        <SwiperAbout images={images}/>
+        {/* <img
           src={selectedImage}
           alt="Selected"
           className="rounded-lg shadow-lg w-full h-auto mb-4"
-        />
-        <div className="flex space-x-2">
+        /> */}
+        {/* <div className="flex space-x-2">
           {images.map((image, index) => (
             <img
               key={index}
@@ -42,7 +44,7 @@ export default function About() {
               onClick={() => setSelectedImage(image)}
             />
           ))}
-        </div>
+        </div> */}
       </div>
     </motion.div>
   );
