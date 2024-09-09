@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, Suspense } from "react";
 import {
   motion,
   AnimatePresence,
@@ -11,12 +11,14 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { SearchOutlined } from "@ant-design/icons";
 import Image from "next/image";
-import { Rakkas } from 'next/font/google';
+import { Rakkas } from "next/font/google";
 import { useDebouncedCallback } from "use-debounce";
+import Loader from "./Loader";
 const rakkas = Rakkas({
-  weight: '400',
-  subsets: ['latin'],
+  weight: "400",
+  subsets: ["latin"],
 });
+
 export const FloatingNav = ({
   navItems,
   className,
@@ -28,10 +30,13 @@ export const FloatingNav = ({
   }[];
   className?: string;
 }) => {
+  const searchParams = useSearchParams();
+  const { replace } = useRouter();
+  const pathname = usePathname();
   const { scrollYProgress } = useScroll();
   const [visible, setVisible] = useState(true);
-  const [searchTerm, setSearchTerm] = useState(""); // Add search term state
-  const router = useRouter(); // useRouter for navigation
+  const [searchTerm, setSearchTerm] = useState("");
+  const router = useRouter();
 
   useMotionValueEvent(scrollYProgress, "change", (current) => {
     if (typeof current === "number") {
@@ -47,14 +52,9 @@ export const FloatingNav = ({
   });
 
   // Handle search input change
-  const searchParams = useSearchParams();
-  const { replace } = useRouter();
-  const pathname = usePathname();
-  
-  const handleSearch = useDebouncedCallback((e:any) => {
+  const handleSearch = useDebouncedCallback((e: any) => {
     const params = new URLSearchParams(searchParams);
-    // params.set("page", '1');
-    
+
     if (e.target.value) {
       e.target.value.length > 2 && params.set("s", e.target.value);
     } else {
@@ -62,14 +62,15 @@ export const FloatingNav = ({
     }
     replace(`${pathname}?${params}`);
   }, 300);
+
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(e.target.value);
-    handleSearch(e)
+    handleSearch(e);
   };
+
   const handleSearchSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (searchTerm.trim()) {
-      // Navigate to the search results page with query parameter
       router.push(`/news?s=${encodeURIComponent(searchTerm)}`);
     }
   };
@@ -78,17 +79,9 @@ export const FloatingNav = ({
     <AnimatePresence mode="wait">
       <div className="relative">
         <motion.div
-          initial={{
-            opacity: 1,
-            y: 10,
-          }}
-          animate={{
-            y: visible ? 0 : -100,
-            opacity: visible ? 1 : 0,
-          }}
-          transition={{
-            duration: 0.2,
-          }}
+          initial={{ opacity: 1, y: 10 }}
+          animate={{ y: visible ? 0 : -100, opacity: visible ? 1 : 0 }}
+          transition={{ duration: 0.2 }}
           className={cn(
             "flex max-w-fit md:min-w-[70vw] navGold bg-gold-500 lg:min-w-fit fixed z-[5000] top-10 inset-x-0 mx-auto px-10 py-5 rounded-lg border border-black/.1 shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)] items-center justify-center space-x-4",
             className
@@ -99,9 +92,9 @@ export const FloatingNav = ({
             border: "1px solid rgba(255, 255, 255, 0.125)",
           }}
         >
-          <Link href="/" className={"absolute left-0 z-50 -translate-x-[150%]"}>
+          <Link href="/" className="absolute left-0 z-50 -translate-x-[150%]">
             <Image
-              src={"/images/دائري مع مريه.png"}
+              src="/images/دائري مع مريه.png"
               alt="logo"
               width={70}
               height={70}
@@ -120,16 +113,19 @@ export const FloatingNav = ({
               <span className="text-sm !cursor-pointer">{navItem.name}</span>
             </Link>
           ))}
-          <div className="bg-gold-500 p-2 rounded-full flex absolute right-0 z-50 translate-x-[120%]  items-center">
+          <div className="bg-gold-500 p-2 rounded-full flex absolute right-0 z-50 translate-x-[120%] items-center">
             <form onSubmit={handleSearchSubmit} className="flex items-center">
               <input
                 type="text"
                 placeholder="ابحث..."
-                value={searchTerm} // bind the input value to state
-                onChange={handleSearchChange} // update state on change
+                value={searchTerm}
+                onChange={handleSearchChange}
                 className="bg-transparent border-none placeholder-white text-white focus:outline-none"
               />
-              <button type="submit" className="bg-[#292829] h-7 flex justify-center items-center rounded-full w-7">
+              <button
+                type="submit"
+                className="bg-[#292829] h-7 flex justify-center items-center rounded-full w-7"
+              >
                 <SearchOutlined />
               </button>
             </form>
@@ -140,10 +136,10 @@ export const FloatingNav = ({
   );
 };
 
-export default function Navbar({isAdmin}:{isAdmin?:boolean}) {
+export default function Navbar({ isAdmin }: { isAdmin?: boolean }) {
   const navItems = [
-    { name: " الرئيسية", link: "/" },
-    { name: " من نحن", link: "/about" },
+    { name: "الرئيسية", link: "/" },
+    { name: "من نحن", link: "/about" },
     { name: "جميع الاخبار", link: "/news" },
     { name: "حجز اعلان", link: "/feedbacks" },
     { name: "تواصل معنا", link: "/contact" },
@@ -154,12 +150,20 @@ export default function Navbar({isAdmin}:{isAdmin?:boolean}) {
     { name: "الاعلانات المحجوزة", link: "/dashboard/feedbacks" },
     { name: "المتواصلين", link: "/dashboard/contact" },
   ];
+
   return (
     <div className="flex">
       <div className={`${rakkas.className}`}>
-      <Link href="/" className={" font-rakkas font-bold p-6 text-[50px] text-gold-500"}>مريه</Link>
+        <Link
+          href="/"
+          className="font-rakkas font-bold p-6 text-[50px] text-gold-500"
+        >
+          مريه
+        </Link>
       </div>
-      <FloatingNav navItems={isAdmin?navItems2:navItems} />
+      <Suspense fallback={<Loader/>}>
+        <FloatingNav navItems={isAdmin ? navItems2 : navItems} />
+      </Suspense>
     </div>
   );
 }

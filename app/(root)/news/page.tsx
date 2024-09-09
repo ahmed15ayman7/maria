@@ -6,7 +6,7 @@ import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { motion } from 'framer-motion';
 import { useSearchParams } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 
 interface NewsItem {
   title: string;
@@ -22,7 +22,12 @@ async function fetchNews(searchTerm: string): Promise<NewsItem[]> {
   });
   return response.data;
 }
-export default function News() {
+export default function Page() {
+  <Suspense fallback={<Loader/>}>
+    <News/>
+  </Suspense>
+}
+function News() {
   let search=useSearchParams()
   let searchTerm1=search.get('s')
   const [searchTerm, setSearchTerm] = useState(searchTerm1?searchTerm1:"");
@@ -66,15 +71,17 @@ function NewsItems({searchTerm}:{searchTerm:string}) {
 
   return (
 
+     
       <div className="w-full max-w-4xl space-y-4">
+
         {newsItems?.map((item, index) => (
           <NewsCard
-            key={index}
-            title={item.title}
-            content={item.content}
-            author={item.author}
-            publishedAt={item.publishedAt}
-            imageUrl={item.imageUrl}
+          key={index}
+          title={item.title}
+          content={item.content}
+          author={item.author}
+          publishedAt={item.publishedAt}
+          imageUrl={item.imageUrl}
           />
         ))}
       </div>
