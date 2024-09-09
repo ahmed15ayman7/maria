@@ -11,7 +11,7 @@ export default function About() {
 
   return (
     <motion.div
-      className="min-h-screen flex flex-col md:flex-row gap-10 items-center justify-center p-8 bg-[#292829]/30"
+      className="min-h-screen max-w-[100vw] flex w-full flex-col md:flex-row gap-10 items-center justify-center max-sm:p-0 p-8 bg-[#292829]/30"
       initial={{ opacity: 0, x: -50 }}
       animate={{ opacity: 1, x: 0 }}
       transition={{ duration: 0.8 }}
@@ -27,7 +27,7 @@ export default function About() {
 دعونا نفعل أشياء عظيمة معًا. لا نستطيع الانتظار للعمل معك.
         </p>
       </div>
-      <div className="flex-1 w-1/2">
+      <div className="flex-1 w-1/2 max-sm:w-full">
         <SwiperAbout images={images}/>
         {/* <img
           src={selectedImage}

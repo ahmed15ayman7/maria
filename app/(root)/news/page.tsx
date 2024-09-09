@@ -22,19 +22,24 @@ async function fetchNews(searchTerm: string): Promise<NewsItem[]> {
   });
   return response.data;
 }
+
 export default function Page() {
-  <Suspense fallback={<Loader/>}>
-    <News/>
-  </Suspense>
+  return (
+    <Suspense fallback={<Loader />}>
+      <News />
+    </Suspense>
+  );
 }
+
 function News() {
-  let search=useSearchParams()
-  let searchTerm1=search.get('s')
-  const [searchTerm, setSearchTerm] = useState(searchTerm1?searchTerm1:"");
+  const search = useSearchParams();
+  const searchTerm1 = search.get('s');
+  const [searchTerm, setSearchTerm] = useState(searchTerm1 ? searchTerm1 : "");
+
   useEffect(() => {
-    setSearchTerm(searchTerm1?searchTerm1:"")
-  }, [searchTerm1])
-  
+    setSearchTerm(searchTerm1 ? searchTerm1 : "");
+  }, [searchTerm1]);
+
   return (
     <motion.div
       className="min-h-screen flex flex-col items-center justify-center p-8 bg-[#292829]/30"
@@ -51,11 +56,14 @@ function News() {
         onChange={(e) => setSearchTerm(e.target.value)}
       /> */}
       
- <NewsItems searchTerm={searchTerm}/>
+      <Suspense fallback={<Loader />}>
+        <NewsItems searchTerm={searchTerm} />
+      </Suspense>
     </motion.div>
   );
 }
-function NewsItems({searchTerm}:{searchTerm:string}) {
+
+function NewsItems({ searchTerm }: { searchTerm: string }) {
   const { data: newsItems, error, isLoading } = useQuery({
     queryKey: ['news', searchTerm], // إضافة searchTerm كجزء من مفتاح الاستعلام
     queryFn: () => fetchNews(searchTerm), // تمرير searchTerm إلى دالة fetchNews
@@ -70,20 +78,17 @@ function NewsItems({searchTerm}:{searchTerm:string}) {
   }
 
   return (
-
-     
-      <div className="w-full max-w-4xl space-y-4">
-
-        {newsItems?.map((item, index) => (
-          <NewsCard
+    <div className="w-full max-w-4xl space-y-4">
+      {newsItems?.map((item, index) => (
+        <NewsCard
           key={index}
           title={item.title}
           content={item.content}
           author={item.author}
           publishedAt={item.publishedAt}
           imageUrl={item.imageUrl}
-          />
-        ))}
-      </div>
+        />
+      ))}
+    </div>
   );
 }

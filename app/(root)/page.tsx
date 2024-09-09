@@ -28,12 +28,12 @@ export default function HomePage() {
 
   if (isLoading) return <Loader />;
   if (isError) return <ReloadButton />;
-
+console.log(newsItemsWithImages)
   return (
     <div className="min-h-screen pt-10 flex flex-col gap-20 items-center justify-center relative">
       <div className="max-w-[100vw] flex flex-col w-full items-center justify-center relative">
         {/* Swiper for news items with images */}
-        {newsItemsWithImages.length > 0 && (
+        {newsItemsWithImages&&newsItemsWithImages.length > 0 && (
           <Swiper
             modules={[Navigation, Pagination, Autoplay]}
             spaceBetween={30}
