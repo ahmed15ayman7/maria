@@ -53,9 +53,9 @@ const NewsDetail = ({ params }:{params:{id:string}}) => {
          <div> 
         <h1 className="text-4xl font-bold mb-4">{news.title}</h1>
         <p className="text-gray-300 text-sm mb-4">By {news.author} | {new Date(news.publishedAt).toLocaleDateString()}</p>
-        <p className="text-lg text-gray-200">{news.content}</p>
          </div>
          <div> 
+        <p className="text-lg text-gray-200">{news.content}</p>
         <button className="mt-8 bg-gold-500 text-white p-3 rounded-lg" onClick={() => router.back()}>
           الرجوع اللي اخر الاخبار
         </button>
