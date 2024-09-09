@@ -22,6 +22,7 @@ const rakkas = Rakkas({
 export const FloatingNav = ({
   navItems,
   className,
+  isAdmin
 }: {
   navItems: {
     name: string;
@@ -29,6 +30,7 @@ export const FloatingNav = ({
     icon?: JSX.Element;
   }[];
   className?: string;
+  isAdmin?:boolean;
 }) => {
   const searchParams = useSearchParams();
   const { replace } = useRouter();
@@ -71,7 +73,7 @@ export const FloatingNav = ({
   const handleSearchSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (searchTerm.trim()) {
-      router.push(`/news?s=${encodeURIComponent(searchTerm)}`);
+      router.push(`${isAdmin?"/dashboard":""}/news?s=${encodeURIComponent(searchTerm)}`);
     }
   };
 
@@ -182,7 +184,7 @@ export default function Navbar({ isAdmin }: { isAdmin?: boolean }) {
     { name: "تواصل معنا", link: "/contact" },
   ];
   const navItems2 = [
-    { name: "Dashboard", link: "/dashboard" },
+    { name: "لوحة التحكم", link: "/dashboard" },
     { name: "جميع الاخبار", link: "/dashboard/news" },
     { name: "الاعلانات المحجوزة", link: "/dashboard/feedbacks" },
     { name: "المتواصلين", link: "/dashboard/contact" },
@@ -192,7 +194,7 @@ export default function Navbar({ isAdmin }: { isAdmin?: boolean }) {
 
     
       <Suspense fallback={<Loader/>}>
-        <FloatingNav navItems={isAdmin ? navItems2 : navItems} />
+        <FloatingNav navItems={isAdmin ? navItems2 : navItems} isAdmin={isAdmin} />
       </Suspense>
   );
 }

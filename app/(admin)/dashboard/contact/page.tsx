@@ -1,99 +1,118 @@
-'use client';
+"use client";
 
-import { useState } from "react";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { motion } from "framer-motion";
+import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import { ContactFormInputs, contactSchema } from "@/lib/validation/contact";
+import { motion } from "framer-motion";
+import Loader from "@/components/shared/Loader"; // Assuming you have Loader component
+import ReloadButton from "@/components/shared/reload"; // Assuming you have ReloadButton component
+import { DeleteOutlined } from "@ant-design/icons"; // Import the delete icon
+import { Tooltip } from "antd"; // Import Tooltip for better UX
+import { toast } from "react-toastify"; // استيراد toast
 
-export default function Contact() {
-  const { register, handleSubmit, formState: { errors } } = useForm<ContactFormInputs>({
-    resolver: zodResolver(contactSchema),
+export interface IContact {
+  _id: string; // Add the ID field for deletion
+  name: string;
+  email: string;
+  message: string;
+  createdAt: Date;
+}
+
+async function fetchFeedbacks() {
+  const { data } = await axios.get("/api/contact");
+  return data;
+}
+
+// Function to delete a contact
+async function deleteContact(id: string) {
+  await axios.delete("/api/contact", { data: { id } });
+}
+
+export default function FeedbacksPage() {
+  const { data: contacts, error, isLoading, refetch } = useQuery<IContact[]>({
+    queryKey: ["feedbacks"],
+    queryFn: fetchFeedbacks,
   });
-  const [loading, setLoading] = useState(false);
 
-  const onSubmit = async (data: ContactFormInputs) => {
-    const loadingToastId = toast.loading("Sending message...");
-
-    setLoading(true);
+  const handleDelete = async (id: string) => {
+    const loadingToastId = toast.loading("جارٍ حذف الرساله..."); // إضافة إشعار التحميل
     try {
-      await axios.post("/api/contact", data);
+      await deleteContact(id); // Call the delete function
+      refetch(); // Refresh the contacts list
       toast.update(loadingToastId, {
-        render: "Message sent successfully!",
+        render: "تم حذف الرساله بنجاح!",
         type: "success",
         isLoading: false,
         autoClose: 3000,
       });
-      setLoading(false);
-    } catch (error) {
+    } catch (err) {
+      console.error("فشل حذف الرساله:", err);
       toast.update(loadingToastId, {
-        render: "Failed to send message.",
+        render: "فشل حذف الرساله.",
         type: "error",
         isLoading: false,
         autoClose: 3000,
       });
-      setLoading(false);
     }
   };
 
+  if (isLoading) {
+    return <Loader />;
+  }
+
+  if (error) {
+    return <ReloadButton />;
+  }
+
   return (
     <motion.div
-      className="min-h-screen flex flex-col items-center justify-center p-8 bg-[#01031c]/50 text-white"
-      initial={{ opacity: 0, x: 50 }}
+      className="max-w-7xl mx-auto p-6"
+      initial={{ opacity: 0, x: -50 }}
       animate={{ opacity: 1, x: 0 }}
       transition={{ duration: 1 }}
     >
-      <h2 className="text-5xl font-bold mb-8 text-gold-500">Contact Us</h2>
-      <form onSubmit={handleSubmit(onSubmit)} className="w-full max-w-md space-y-6">
-        <div>
-          <label className="block mb-2 text-sm font-bold">Name</label>
-          <input
-            type="text"
-            className={`w-full px-4 py-2 rounded-lg text-gray-800 ${
-              errors.name ? "border-red-500" : ""
-            }`}
-            {...register("name")}
-            required
-          />
-          {errors.name && <p className="text-red-500 mt-1">{errors.name.message}</p>}
-        </div>
-        <div>
-          <label className="block mb-2 text-sm font-bold">Email</label>
-          <input
-            type="email"
-            className={`w-full px-4 py-2 rounded-lg text-gray-800 ${
-              errors.email ? "border-red-500" : ""
-            }`}
-            {...register("email")}
-            required
-          />
-          {errors.email && <p className="text-red-500 mt-1">{errors.email.message}</p>}
-        </div>
-        <div>
-          <label className="block mb-2 text-sm font-bold">Message</label>
-          <textarea
-            className={`w-full px-4 py-2 rounded-lg text-gray-800 ${
-              errors.message ? "border-red-500" : ""
-            }`}
-            rows={4}
-            {...register("message")}
-            required
-          />
-          {errors.message && <p className="text-red-500 mt-1">{errors.message.message}</p>}
-        </div>
-        <motion.button
-          className="w-full py-3 bg-gold-500 text-white rounded-lg text-lg font-semibold shadow-lg"
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-          type="submit"
-          disabled={loading}
+      <h1 className="text-4xl font-bold text-center text-gold-500 mb-8">اخر المتواصلين</h1>
+      {contacts && contacts.length > 0 ? (
+        <motion.div
+          className="grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
+          initial="hidden"
+          animate="visible"
+          variants={{
+            hidden: { opacity: 0, y: 50 },
+            visible: {
+              opacity: 1,
+              y: 0,
+              transition: { staggerChildren: 0.2 },
+            },
+          }}
         >
-          {loading ? "Sending..." : "Send Message"}
-        </motion.button>
-      </form>
+          {contacts.map((contact, index) => (
+            <motion.li
+              key={index}
+              className="bg-gold-500 p-6 rounded-lg shadow-md flex justify-between max-sm:justify-center items-center relative"
+              initial={{ y: 20, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ duration: 0.5, delay: index * 0.2 }}
+            >
+              <div className="flex flex-col max-sm:max-w-[200px] text-wrap max-sm:items-center">
+                <h2 className="text-2xl font-semibold text-white">{contact.name}</h2>
+                <p className="text-gray-100 mb-2">{contact.email}</p>
+                <p className="text-gray-200">{contact.message}</p>
+                <p className="text-sm text-gray-300 mt-2">{new Date(contact.createdAt).toLocaleDateString()}</p>
+              </div>
+              <Tooltip title="حذف">
+                <button
+                  className="absolute top-2 left-2 text-red-500 hover:text-red-700" // Positioning the delete icon
+                  onClick={() => handleDelete(contact._id)} // Call handleDelete
+                >
+                  <DeleteOutlined />
+                </button>
+              </Tooltip>
+            </motion.li>
+          ))}
+        </motion.div>
+      ) : (
+        <p className="text-center text-gray-400">لا يوجد متواصلين</p>
+      )}
     </motion.div>
   );
 }

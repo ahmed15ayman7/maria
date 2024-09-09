@@ -35,3 +35,19 @@ export async function GET() {
     return NextResponse.json({ error: "Error fetching contacts" }, { status: 500 });
   }
 }
+export async function DELETE(req: Request) {
+  await connectDB();
+
+  const body = await req.json();
+  const { id } = body;
+
+  try {
+    const result = await Contact.findByIdAndDelete(id);
+    if (!result) {
+      return NextResponse.json({ error: "Contact not found" }, { status: 404 });
+    }
+    return NextResponse.json({ message: "Contact deleted successfully" }, { status: 200 });
+  } catch (error) {
+    return NextResponse.json({ error: "Error deleting contact" }, { status: 500 });
+  }
+}
