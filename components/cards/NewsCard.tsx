@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { toast } from 'react-toastify'; // Import toast from react-toastify
 import 'react-toastify/dist/ReactToastify.css'; // Import CSS for the toast notifications
 import { DeleteOutlined } from '@ant-design/icons'; // Import the delete icon
+import Link from 'next/link';
 
 interface NewsCardProps {
   title: string;
@@ -12,7 +13,7 @@ interface NewsCardProps {
   publishedAt: string;
   imageUrl?: string;
   isAdmin?: boolean; // Add this prop to determine if the user is an admin
-  newsId?: string; // Pass the news ID for deletion
+  newsId: string; // Pass the news ID for deletion
   onDelete?: (id: string) => void; // Callback to handle deletion in parent component
 }
 
@@ -53,23 +54,25 @@ const NewsCard: React.FC<NewsCardProps> = ({ title, content, author, publishedAt
   };
 
   return (
-    <div className="bg-white/30 max-w-[100vm] rounded-lg relative"> {/* Added relative positioning */}
+    <div className="bg-white/10 max-w-[100vm] rounded-lg relative"> {/* Added relative positioning */}
       {isAdmin && (
         <div className="absolute top-2 left-2 cursor-pointer" onClick={() => handleDelete(newsId ? newsId : "")}>
           <DeleteOutlined style={{ fontSize: '20px', color: 'red' }} />
         </div>
       )}
+         <Link href={`/news/${newsId}`}>
+
       <motion.div
-        className="bg-gold-500 rounded-lg flex max-sm:flex-col max-sm:justify-center flex-row-reverse shadow-lg p-8"
+        className="bg-gold-500/10 hover:bg-gold-500 rounded-lg flex max-sm:flex-col max-sm:justify-center flex-row-reverse shadow-lg p-8"
         initial={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.5 }}
-      >
+        >
         {imageUrl && (
           <img
-            src={imageUrl}
-            alt={title}
-            className="w-1/2 max-sm:w-full h-full max-h-[60vh] max-w-[500px] object-cover max-sm:justify-center max-sm:flex max-sm:rounded-t-lg rounded-r-lg"
+          src={imageUrl}
+          alt={title}
+          className="w-1/2 max-sm:w-full h-full max-h-[60vh] max-w-[500px] object-cover max-sm:justify-center max-sm:flex max-sm:rounded-t-lg rounded-r-lg"
           />
         )}
         <div className={` max-sm:text-center  ${!imageUrl ? "" : "p-4 w-1/2 max-sm:w-full"}`}>
@@ -80,6 +83,7 @@ const NewsCard: React.FC<NewsCardProps> = ({ title, content, author, publishedAt
           </p>
         </div>
       </motion.div>
+        </Link>
     </div>
   );
 };

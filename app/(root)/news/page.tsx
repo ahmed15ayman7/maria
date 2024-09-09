@@ -9,6 +9,7 @@ import { useSearchParams } from 'next/navigation';
 import { Suspense, useEffect, useState } from 'react';
 
 interface NewsItem {
+  _id: string;
   title: string;
   content: string;
   author: string;
@@ -23,7 +24,7 @@ async function fetchNews(searchTerm: string): Promise<NewsItem[]> {
   return response.data;
 }
 
-export default function Page() {
+export default function NEWS() {
   return (
     <Suspense fallback={<Loader />}>
       <News />
@@ -81,6 +82,7 @@ function NewsItems({ searchTerm }: { searchTerm: string }) {
     <div className="w-full max-w-4xl space-y-4">
       {newsItems?.map((item, index) => (
         <NewsCard
+        newsId={item._id}
           key={index}
           title={item.title}
           content={item.content}

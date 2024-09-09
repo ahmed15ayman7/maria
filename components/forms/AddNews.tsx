@@ -44,7 +44,7 @@ export default function AddNewsForm({refetch}:{refetch:()=>void}) {
 
   return (
     <motion.div 
-      className="max-w-lg mx-auto min-w-[500px] p-6 mb-4 rounded-lg shadow-md"
+      className="max-w-lg mx-auto p-6 mb-4 rounded-lg shadow-md"
       initial={{ opacity: 0, scale: 0.8 }} 
       animate={{ opacity: 1, scale: 1 }} 
       exit={{ opacity: 0, scale: 0.8 }}

@@ -9,6 +9,7 @@ import "swiper/css"; // Swiper styles
 import "swiper/css/navigation"; // For navigation arrows
 import { Navigation, Pagination, Autoplay } from "swiper/modules"; // Swiper modules
 import About from "./about/page";
+import NEWS from "./news/page";
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 const fetchNews = async () => {
@@ -47,7 +48,7 @@ console.log(newsItemsWithImages)
               "--swiper-navigation-color": "#ffffff",
               //@ts-ignore
               "--swiper-pagination-color": "#ffffff",
-              padding: " 25px 20px ",
+              padding: " 25px 10px ",
             }}
       
             pagination={{ clickable: true }}
@@ -58,6 +59,7 @@ console.log(newsItemsWithImages)
             {newsItemsWithImages.map((news: any, index: number) => (
               <SwiperSlide key={index}>
                 <NewsCard
+                newsId={news._id}
                   title={news.title}
                   content={news.content}
                   author={news.author}
@@ -95,6 +97,7 @@ console.log(newsItemsWithImages)
           </Swiper>
         )}
       </div> */}
+      <NEWS/>
       <About />
     </div>
   );
