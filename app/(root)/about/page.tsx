@@ -18,10 +18,10 @@ export default function About() {
     >
       <div className="flex-1 text-center md:text-right mb-8 md:mb-0 md:mr-8">
         <h2 className="text-5xl font-bold mb-4 text-gold-500">من نحن</h2>
-        <p className="text-xl text-gray-100 max-w-2xl">
+        <p className="text-xl text-gray-100 max-w-2xl max-sm:max-w-[300px]">
         نحن نعمل بشكل تعاوني مع عملائنا لاكتشاف الطريقة الأكثر فعالية وكفاءة لتحقيق احتياجاتهم.
         </p>
-        <p className="text-lg text-gray-200 max-w-2xl mt-4">
+        <p className="text-lg text-gray-200 max-w-2xl max-sm:max-w-[300px] mt-4">
         في مجلة مريه، نؤمن بوجود طريقة أفضل لتلبية احتياجات عملائنا. نحن شركة موجودة لمساعدتك على تحقيق أكثر مما كنت تعتقد أنه ممكن.
 إن فهم جميع نقاط الاتصال الفريدة لكل عميل أمر ضروري لأعمالنا. نحن نركز على بناء علاقات موثوقة ونتائج مذهلة وتجارب موثوقة مفيدة ولا تُنسى.
 دعونا نفعل أشياء عظيمة معًا. لا نستطيع الانتظار للعمل معك.

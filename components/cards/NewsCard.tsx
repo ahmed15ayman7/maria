@@ -69,10 +69,10 @@ const NewsCard: React.FC<NewsCardProps> = ({ title, content, author, publishedAt
           <img
             src={imageUrl}
             alt={title}
-            className="w-1/2 h-full max-h-[60vh] max-w-[500px] object-cover max-sm:justify-center max-sm:flex max-sm:rounded-t-lg rounded-r-lg"
+            className="w-1/2 max-sm:w-full h-full max-h-[60vh] max-w-[500px] object-cover max-sm:justify-center max-sm:flex max-sm:rounded-t-lg rounded-r-lg"
           />
         )}
-        <div className={!imageUrl ? "" : "p-4 w-1/2"}>
+        <div className={` max-sm:text-center  ${!imageUrl ? "" : "p-4 w-1/2 max-sm:w-full"}`}>
           <h3 className="text-2xl font-bold mb-2">{title}</h3>
           <p className="text-gray-200 mb-4">{content}</p>
           <p className="text-sm text-gray-300">

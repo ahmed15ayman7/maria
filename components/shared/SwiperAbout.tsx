@@ -28,7 +28,7 @@ export default function SwiperAbout({images}:{images:string[]}) {
               thumbsSwiper && !thumbsSwiper.destroyed ? thumbsSwiper : null
           }}
           modules={[FreeMode, Navigation, Thumbs]}
-          className='h-96 w-full rounded-lg'
+          className='h-96 w-full max-w-[100vh] rounded-lg'
         >
           {images.map((image, index) => (
             <SwiperSlide key={index}>
@@ -56,7 +56,7 @@ export default function SwiperAbout({images}:{images:string[]}) {
         >
           {images.map((image, index) => (
             <SwiperSlide key={index}>
-              <button className='flex h-full w-full items-center justify-center'>
+              <button className='flex h-full w-full max-w-[100vh] items-center justify-center'>
                 <img
                   src={image}
                   alt={image}
