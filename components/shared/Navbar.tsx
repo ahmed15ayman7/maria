@@ -76,45 +76,16 @@ export const FloatingNav = ({
   };
 
   return (
-    <AnimatePresence mode="wait">
-      <div className="relative">
-        <motion.div
-          initial={{ opacity: 1, y: 10 }}
-          animate={{ y: visible ? 0 : -100, opacity: visible ? 1 : 0 }}
-          transition={{ duration: 0.2 }}
-          className={cn(
-            "flex max-w-fit md:min-w-[70vw] navGold bg-gold-500 lg:min-w-fit fixed z-[5000] top-10 inset-x-0 mx-auto px-10 py-5 rounded-lg border border-black/.1 shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)] items-center justify-center space-x-4",
-            className
-          )}
-          style={{
-            backdropFilter: "blur(16px) saturate(180%)",
-            borderRadius: "12px",
-            border: "1px solid rgba(255, 255, 255, 0.125)",
-          }}
+    <div className="">
+<div className={`${rakkas.className} w-full items-center  flex justify-between max-lg:pt-16`}>
+        <Link
+          href="/"
+          className="font-rakkas font-bold p-6 max-lg:px-1 text-[50px] text-gold-500"
         >
-          <Link href="/" className="absolute left-0 z-50 -translate-x-[150%]">
-            <Image
-              src="/images/دائري مع مريه.png"
-              alt="logo"
-              width={70}
-              height={70}
-              className="ml-5 rounded-full bg-gold-500 shadow-xl scale-110"
-            />
-          </Link>
-          {navItems.map((navItem, idx) => (
-            <Link
-              key={`link=${idx}`}
-              href={navItem.link}
-              className={cn(
-                "relative dark:text-neutral-50 font-bold items-center flex space-x-1 text-neutral-600 dark:hover:text-neutral-300 hover:text-neutral-500"
-              )}
-            >
-              <span className="block sm:hidden">{navItem.icon}</span>
-              <span className="text-sm !cursor-pointer">{navItem.name}</span>
-            </Link>
-          ))}
-          <div className="bg-gold-500 p-2 rounded-full flex absolute right-0 z-50 translate-x-[120%] items-center">
-            <form onSubmit={handleSearchSubmit} className="flex items-center">
+          مريه
+        </Link>
+        <div className="bg-gold-500 p-1 rounded-full max-lg:flex  hidden  z-50  items-center">
+        <form onSubmit={handleSearchSubmit} className="flex items-center">
               <input
                 type="text"
                 placeholder="ابحث..."
@@ -130,9 +101,75 @@ export const FloatingNav = ({
               </button>
             </form>
           </div>
-        </motion.div>
+        <Link href="/" className=" z-50 max-lg:block hidden ">
+            <Image
+              src="/images/دائري مع مريه.png"
+              alt="logo"
+              width={40}
+              height={40}
+              className="ml-5 rounded-full bg-gold-500 shadow-xl scale-110"
+              />
+          </Link>
+
       </div>
+      <div className="relative ">
+    <AnimatePresence mode="wait" >
+        <motion.div
+          initial={{ opacity: 1, y: 10 }}
+          animate={{ y: visible ? 0 : -100, opacity: visible ? 1 : 0 }}
+          transition={{ duration: 0.2 }}
+          className={cn(
+            "flex max-w-fit max-lg:max-w-full  md:min-w-[70vw] navGold max-lg:before:hidden max-lg:after:hidden bg-gold-500 max-lg:w-full  lg:min-w-fit fixed z-[5000] top-10 max-lg:top-3 inset-x-0 mx-auto max-lg:mx-0 px-10 max-lg:px-3 py-5 rounded-lg border border-black/.1 shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)] items-center justify-center space-x-4 max-lg:space-x-1",
+            className
+          )}
+          style={{
+            backdropFilter: "blur(16px) saturate(180%)",
+            borderRadius: "12px",
+            border: "1px solid rgba(255, 255, 255, 0.125)",
+          }}
+          >
+          <Link href="/" className="absolute left-0 z-50 max-lg:hidden -translate-x-[150%]">
+            <Image
+              src="/images/دائري مع مريه.png"
+              alt="logo"
+              width={70}
+              height={70}
+              className="ml-5 rounded-full bg-gold-500 shadow-xl scale-110"
+              />
+          </Link>
+          {navItems.map((navItem, idx) => (
+            <Link
+            key={`link=${idx}`}
+            href={navItem.link}
+            className={cn(
+              "relative dark:text-neutral-50 font-bold items-center flex space-x-1 text-neutral-600 dark:hover:text-neutral-300 hover:text-neutral-500"
+            )}
+            >
+              <span className="block md:hidden">{navItem.icon}</span>
+              <span className="text-sm !cursor-pointer">{navItem.name}</span>
+            </Link>
+          ))}
+          <div className="bg-gold-500 p-2 rounded-full flex absolute right-0 z-50 translate-x-[120%] items-center">
+            <form onSubmit={handleSearchSubmit} className="flex items-center">
+              <input
+                type="text"
+                placeholder="ابحث..."
+                value={searchTerm}
+                onChange={handleSearchChange}
+                className="bg-transparent border-none placeholder-white text-white focus:outline-none"
+                />
+              <button
+                type="submit"
+                className="bg-[#292829] h-7 flex justify-center items-center rounded-full w-7"
+                >
+                <SearchOutlined />
+              </button>
+            </form>
+          </div>
+        </motion.div>
     </AnimatePresence>
+      </div>
+                </div>
   );
 };
 
@@ -152,18 +189,10 @@ export default function Navbar({ isAdmin }: { isAdmin?: boolean }) {
   ];
 
   return (
-    <div className="flex">
-      <div className={`${rakkas.className}`}>
-        <Link
-          href="/"
-          className="font-rakkas font-bold p-6 text-[50px] text-gold-500"
-        >
-          مريه
-        </Link>
-      </div>
+
+    
       <Suspense fallback={<Loader/>}>
         <FloatingNav navItems={isAdmin ? navItems2 : navItems} />
       </Suspense>
-    </div>
   );
 }
