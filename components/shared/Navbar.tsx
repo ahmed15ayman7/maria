@@ -151,7 +151,7 @@ export const FloatingNav = ({
               <span className="text-sm !cursor-pointer">{navItem.name}</span>
             </Link>
           ))}
-          <div className="bg-gold-500 p-2 rounded-full flex absolute right-0 z-50 translate-x-[120%] items-center">
+          <div className="bg-gold-500 p-2 rounded-full  max-lg:hidden flex absolute right-0 z-50 translate-x-[120%] items-center">
             <form onSubmit={handleSearchSubmit} className="flex items-center">
               <input
                 type="text"
