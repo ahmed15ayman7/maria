@@ -47,7 +47,7 @@ const NewsDetail = ({ params }:{params:{id:string}}) => {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 1 }}
     >
-      <div className="max-w-[99vw] w-full flex gap-10  bg-white/10 rounded-lg p-8 shadow-lg">
+      <div className="max-w-[99vw] max-sm:flex-col-reverse w-full flex gap-10  bg-white/10 rounded-lg p-8 shadow-lg">
         
          <div className="flex w-1/2 max-sm:w-full flex-col justify-between"> 
          <div> 
