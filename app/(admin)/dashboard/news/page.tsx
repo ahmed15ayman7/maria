@@ -44,7 +44,7 @@ function NewsContent() {
     setSearchTerm(searchTerm1 ? searchTerm1 : '');
   }, [searchTerm1]);
 
-  const isAdmin = true; // Determine if the user is an admin
+  const isAdmin = true; // Determine if the user is an adminn
 
   return (
     <motion.div
