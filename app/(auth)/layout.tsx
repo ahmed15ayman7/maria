@@ -2,6 +2,17 @@ import type { Metadata } from "next";
 import Navbar from "@/components/shared/Navbar";
 import Footer from "@/components/shared/Footer";
 import Image from "next/image";
+import  localFont  from 'next/font/local';
+const geistSans = localFont({
+  src: "../fonts/GeistVF.woff",
+  variable: "--font-geist-sans",
+  weight: "100 900",
+});
+const geistMono = localFont({
+  src: "../fonts/GeistMonoVF.woff",
+  variable: "--font-geist-mono",
+  weight: "100 900",
+});
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -13,8 +24,17 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return <div className=" min-h-screen flex justify-center items-center">
+  return (
+    <html lang="en">
+      
+    <body
+    dir={"rtl"}
+      className={`${geistSans.variable}  ${geistMono.variable} min-h-screen antialiased bg-[#292829]`} style={{backgroundImage:"linear-gradient(45deg,#252425,#312F31,#292829,#292829,#393639,#292829,#292829,#393639,#292828)"}}>
+  <div className=" min-h-screen flex justify-center items-center">
        <Image src={"/images/مرية خلفية شفافة.png"} alt='logo' width={100} height={100} className='ml-5 rounded-full shadow-xl fixed top-3 left-3 scale-110' />
     {children}
-    </div>;
+    </div>
+    </body>
+    </html>
+    );
 }

@@ -63,7 +63,7 @@ export default function RegisterPage() {
 
   return (
     <motion.div
-      className="max-w-md mx-auto mt-10 min-w-[500px] p-6 rounded-lg shadow-lg "
+      className="max-w-md mx-auto mt-10 min-w-[500px] max-sm:min-w-[350px]   p-6 rounded-lg shadow-lg "
       initial={{ opacity: 0, y: 30 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6 }}

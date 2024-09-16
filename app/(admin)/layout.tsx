@@ -1,6 +1,20 @@
 import type { Metadata } from "next";
 import Navbar from "@/components/shared/Navbar";
 import Footer from "@/components/shared/Footer";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import  localFont  from 'next/font/local';
+const geistSans = localFont({
+  src: "../fonts/GeistVF.woff",
+  variable: "--font-geist-sans",
+  weight: "100 900",
+});
+const geistMono = localFont({
+  src: "../fonts/GeistMonoVF.woff",
+  variable: "--font-geist-mono",
+  weight: "100 900",
+});
+
 export const metadata: Metadata = {
   metadataBase:new URL("https://maria.com"),
   title: " مريه - أخبار وآراء",
@@ -36,12 +50,18 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return (<>
+  return (
+    <html lang="en">
+    
+      <body
+      dir={"rtl"}
+        className={`${geistSans.variable}  ${geistMono.variable} min-h-screen antialiased bg-[#292829]`} style={{backgroundImage:"linear-gradient(45deg,#252425,#312F31,#292829,#292829,#393639,#292829,#292829,#393639,#292828)"}}>
           <Navbar isAdmin />
 <div className=" min-h-screen ">
           {children}
 </div>
           <Footer/>
-  </>
+  </body>
+  </html>
   );
 }

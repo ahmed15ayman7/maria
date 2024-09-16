@@ -178,10 +178,10 @@ export const FloatingNav = ({
 export default function Navbar({ isAdmin }: { isAdmin?: boolean }) {
   const navItems = [
     { name: "الرئيسية", link: "/" },
-    { name: "من نحن", link: "/about" },
     { name: "جميع الاخبار", link: "/news" },
     { name: "حجز اعلان", link: "/feedbacks" },
     { name: "تواصل معنا", link: "/contact" },
+    { name: "من نحن", link: "/about" },
   ];
   const navItems2 = [
     { name: "لوحة التحكم", link: "/dashboard" },
