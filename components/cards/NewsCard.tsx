@@ -60,7 +60,7 @@ const NewsCard: React.FC<NewsCardProps> = ({ title, content, author, publishedAt
           <DeleteOutlined style={{ fontSize: '20px', color: 'red' }} />
         </div>
       )}
-         <Link href={`/news/${newsId}`}>
+         <Link href={`/news/item?id=${newsId}`}>
 
       <motion.div
         className="bg-gold-500/10 hover:bg-gold-500 rounded-lg flex max-sm:flex-col max-sm:justify-center flex-row-reverse shadow-lg p-8"

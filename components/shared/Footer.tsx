@@ -17,7 +17,7 @@ const Footer = () => {
     "صافي": { icon: <WiCloudy size={24} />, color: '#A9A9A9' }, // رمادي غائم
     "ثلوج": { icon: <WiSnow size={24} />, color: '#ADD8E6' }, // أزرق ثلجي
   };
-
+  
   useEffect(() => {
     // Get today's date in Arabic format
     const today = new Date();
