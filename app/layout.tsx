@@ -16,12 +16,14 @@ const geistMono = localFont({
   weight: "100 900",
 });
 
+
 export const metadata: Metadata = {
+  metadataBase:new URL("https://maria.com"),
   title: " مريه - أخبار وآراء",
   description: "موقع مريه هو موقع إخباري يقدم آخر الأخبار والتحليلات في مختلف المجالات. تابعونا للحصول على تحديثات يومية.",
   keywords: "أخبار, مريه, أخبار اليوم, أخبار محلية, أخبار دولية, تحليلات, مقالات",
-  themeColor: "#ffffff", // اللون الذي تفضله
-  viewport: "width=device-width, initial-scale=1",
+  // themeColor: "#ffffff", // اللون الذي تفضله
+  // viewport: "width=device-width, initial-scale=1",
   openGraph: {
     title: " مريه - أخبار وآراء",
     description: "موقع مريه هو موقع إخباري يقدم آخر الأخبار والتحليلات في مختلف المجالات. تابعونا للحصول على تحديثات يومية.",
@@ -29,7 +31,7 @@ export const metadata: Metadata = {
     siteName: "مريه",
     images: [
       {
-        url: "/public/images/دائري مع مريه.png", // صورة للمشاركة
+        url: "/images/دائري مع مريه.png", // صورة للمشاركة
         width: 1200,
         height: 630,
         alt: "شعار موقع مريه",
@@ -38,12 +40,12 @@ export const metadata: Metadata = {
     locale: "ar_AR", // اللغة العربية
     type: "website",
   },
-  twitter: {
-    card: "summary_large_image",
-    title: "موقع مريه - أخبار وآراء",
-    description: "موقع مريه هو موقع إخباري يقدم آخر الأخبار والتحليلات في مختلف المجالات. تابعونا للحصول على تحديثات يومية.",
- // صورة لمشاركة تويتر
-  },
+  // twitter: {
+  //   card: "summary_large_image",
+  //   title: "موقع مريه - أخبار وآراء",
+  //   description: "موقع مريه هو موقع إخباري يقدم آخر الأخبار والتحليلات في مختلف المجالات. تابعونا للحصول على تحديثات يومية.",
+  //   images:["/images/دائري مع مريه.png"]
+  // },
 };
 
 export default function RootLayout({
@@ -54,14 +56,38 @@ export default function RootLayout({
   return (
     <InfintyProvider>
       <html lang="en">
-        <head>
-        </head>
+      <head>
+        <script
+          type="text/javascript"
+          dangerouslySetInnerHTML={{
+            __html: `
+              var _smartsupp = _smartsupp || {};
+              _smartsupp.key = 'aa38208e453a793c1fab7fe043768da4aba176e5';
+              window.smartsupp || (function(d) {
+                var s, c, o = smartsupp = function() { o._.push(arguments); };
+                o._ = [];
+                s = d.getElementsByTagName('script')[0];
+                c = d.createElement('script');
+                c.type = 'text/javascript';
+                c.charset = 'utf-8';
+                c.async = true;
+                c.src = 'https://www.smartsuppchat.com/loader.js?';
+                s.parentNode.insertBefore(c, s);
+              })(document);
+            `,
+          }}
+        />
+      </head>
         <body
         dir={"rtl"}
           className={`${geistSans.variable}  ${geistMono.variable} min-h-screen antialiased bg-[#292829]`} style={{backgroundImage:"linear-gradient(45deg,#252425,#312F31,#292829,#292829,#393639,#292829,#292829,#393639,#292828)"}}>
           {children}
           <ToastContainer />
+          <noscript>
+          Powered by <a href="https://mraeh.com" target="_blank" rel="noopener noreferrer">Mraeh</a>
+        </noscript>
         </body>
+
       </html>
     </InfintyProvider>
   );

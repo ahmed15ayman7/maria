@@ -9,8 +9,8 @@ import "swiper/css"; // Swiper styles
 import "swiper/css/navigation"; // For navigation arrows
 import { Navigation, Pagination, Autoplay } from "swiper/modules"; // Swiper modules
 import About from "./about/page";
-import NEWS from "./news/page";
 import { ChevronLeft, ChevronRight } from 'lucide-react';
+import News from "./news/NewsClient";
 
 const fetchNews = async () => {
   const { data } = await axios.get("/api/news");
@@ -97,7 +97,7 @@ console.log(newsItemsWithImages)
           </Swiper>
         )}
       </div> */}
-      <NEWS/>
+      <News/>
       <About />
     </div>
   );

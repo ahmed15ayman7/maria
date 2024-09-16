@@ -1,12 +1,19 @@
+// app/api/news/item/route.ts
 import { NextResponse } from 'next/server';
 import News from '@/lib/models/news.model';
 import { connectDB } from '@/mongoose';
 
 // GET request to fetch a news article by its _id
-export async function GET(req: Request, { params }: { params: { id: string } }) {
+export async function GET(req: Request) {
   await connectDB();
-  
-  const { id } = params;
+
+  // Extract search parameters from the request URL
+  const { searchParams } = new URL(req.url);
+  const id = searchParams.get('id'); // Get the 'id' query parameter
+
+  if (!id) {
+    return NextResponse.json({ error: 'ID query parameter is required' }, { status: 400 });
+  }
 
   try {
     const newsItem = await News.findById(id);
@@ -23,10 +30,16 @@ export async function GET(req: Request, { params }: { params: { id: string } }) 
 }
 
 // PUT request to update a news article by its _id
-export async function PUT(req: Request, { params }: { params: { id: string } }) {
+export async function PUT(req: Request) {
   await connectDB();
 
-  const { id } = params;
+  // Extract search parameters from the request URL
+  const { searchParams } = new URL(req.url);
+  const id = searchParams.get('id'); // Get the 'id' query parameter
+
+  if (!id) {
+    return NextResponse.json({ error: 'ID query parameter is required' }, { status: 400 });
+  }
 
   try {
     const body = await req.json();
@@ -44,10 +57,16 @@ export async function PUT(req: Request, { params }: { params: { id: string } }) 
 }
 
 // DELETE request to delete a news article by its _id
-export async function DELETE(req: Request, { params }: { params: { id: string } }) {
+export async function DELETE(req: Request) {
   await connectDB();
 
-  const { id } = params;
+  // Extract search parameters from the request URL
+  const { searchParams } = new URL(req.url);
+  const id = searchParams.get('id'); // Get the 'id' query parameter
+
+  if (!id) {
+    return NextResponse.json({ error: 'ID query parameter is required' }, { status: 400 });
+  }
 
   try {
     const deletedNews = await News.findByIdAndDelete(id);
