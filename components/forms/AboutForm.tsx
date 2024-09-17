@@ -5,12 +5,12 @@ import axios from 'axios';
 import PencilIcon from "../cards/PencilIcon";
 import { Dialog } from '@headlessui/react';
 import 'react-image-crop/dist/ReactCrop.css';
-import { NewsFormInputs, newsSchema } from '@/lib/validation/news';
 import Modal from '@/components/cards/Modal';
 import { toast } from 'react-toastify';
 import { motion } from 'framer-motion';
+import { AboutFormInputs, aboutSchema } from '@/lib/validation/about';
 
-export default function AddNewsForm({refetch}:{refetch:()=>void}) {
+export default function AboutForm({refetch}:{refetch:()=>void}) {
   const avatarUrl = useRef("");
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const {
@@ -19,8 +19,8 @@ export default function AddNewsForm({refetch}:{refetch:()=>void}) {
     formState: { errors },
     setValue,
     reset
-  } = useForm<NewsFormInputs>({
-    resolver: zodResolver(newsSchema),
+  } = useForm<AboutFormInputs>({
+    resolver: zodResolver(aboutSchema),
   });
 
   const updateAvatar = (imgSrc: string) => {
@@ -28,17 +28,17 @@ export default function AddNewsForm({refetch}:{refetch:()=>void}) {
     setValue("imageUrl", imgSrc);
   };
 
-  const onSubmit = async (data: NewsFormInputs) => {
+  const onSubmit = async (data: AboutFormInputs) => {
     const loadingToastId = toast.loading('Adding news...'); // Show loading toast
 
     try {
-      await axios.post('/api/news', data);
-      toast.update(loadingToastId, { render: 'News added successfully!', type: 'success', isLoading: false, autoClose: 3000 });
+      await axios.post('/api/about', data);
+      toast.update(loadingToastId, { render: 'About added successfully!', type: 'success', isLoading: false, autoClose: 3000 });
       reset()
       updateAvatar("")
       refetch()
     } catch (error) {
-      toast.update(loadingToastId, { render: 'Failed to add news', type: 'error', isLoading: false, autoClose: 3000 });
+      toast.update(loadingToastId, { render: 'Failed to add About', type: 'error', isLoading: false, autoClose: 3000 });
     }
   };
 
@@ -50,46 +50,26 @@ export default function AddNewsForm({refetch}:{refetch:()=>void}) {
       exit={{ opacity: 0, scale: 0.8 }}
       transition={{ duration: 0.3 }}
     >
-      <h2 className="text-2xl text-gold-500 font-bold mb-4">اضافة خبر</h2>
+      <h2 className="text-2xl text-gold-500 font-bold mb-4">تعديل من نحن </h2>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="mb-4">
           <label className="block text-gold-500">العنوان</label>
-          <input
+          <textarea
             {...register('title')}
-            type="text"
             className="w-full border text-gray-900 border-gray-300 p-2 rounded"
           />
           {errors.title && <p className="text-red-600">{errors.title.message}</p>}
         </div>
 
         <div className="mb-4">
-          <label className="block text-gold-500">المقال</label>
+          <label className="block text-gold-500">المعلومات</label>
           <textarea
-            {...register('content')}
+            {...register('details')}
             className="w-full border text-gray-900 border-gray-300 p-2 rounded"
           />
-          {errors.content && <p className="text-red-600">{errors.content.message}</p>}
+          {errors.details && <p className="text-red-600">{errors.details.message}</p>}
         </div>
 
-        <div className="mb-4">
-          <label className="block text-gold-500">المؤلف</label>
-          <input
-            type="text"
-            {...register('author')}
-            className="w-full border text-gray-900 border-gray-300 p-2 rounded"
-          />
-          {errors.author && <p className="text-red-600">{errors.author.message}</p>}
-        </div>
-
-        <div className="mb-4">
-          <label className="block text-gold-500">الفئة</label>
-          <input
-            type="text"
-            {...register('category')}
-            className="w-full border text-gray-900 border-gray-300 p-2 rounded"
-          />
-          {errors.category && <p className="text-red-600">{errors.category.message}</p>}
-        </div>
 
         <div className="mb-4 relative">
           {avatarUrl.current && (
@@ -132,7 +112,7 @@ export default function AddNewsForm({refetch}:{refetch:()=>void}) {
           type="submit" 
           className="bg-gold-500 w-full  text-white px-4 py-2 rounded hover:bg-gold-500/90 transition"
           >
-          اضافة
+          تعديل 
         </button>
           </div>
       </form>
