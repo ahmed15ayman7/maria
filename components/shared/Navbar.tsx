@@ -184,11 +184,12 @@ export default function Navbar({ isAdmin }: { isAdmin?: boolean }) {
     { name: "من نحن", link: "/about" },
   ];
   const navItems2 = [
-    { name: "لوحة التحكم", link: "/dashboard" },
-    { name: "جميع الاخبار", link: "/dashboard/news" },
-    { name: "الاعلانات المحجوزة", link: "/dashboard/feedbacks" },
+    { name: "التحكم", link: "/dashboard" },
+    { name: "الاخبار", link: "/dashboard/news" },
+    { name: "الاعلانات ", link: "/dashboard/feedbacks" },
     { name: " اضافة اعلان", link: "/dashboard/ad" },
     { name: "المتواصلين", link: "/dashboard/contact" },
+    { name: "من نحن", link: "/dashboard/about" },
   ];
 
   return (

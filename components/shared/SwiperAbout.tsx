@@ -44,7 +44,7 @@ export default function SwiperAbout({images}:{images:string[]}) {
         </Swiper>
 
         {/* Thumbnail */}
-        <Swiper
+        {/* <Swiper
           onSwiper={setThumbsSwiper}
           loop={true}
           spaceBetween={12}
@@ -65,7 +65,7 @@ export default function SwiperAbout({images}:{images:string[]}) {
               </button>
             </SwiperSlide>
           ))}
-        </Swiper>
+        </Swiper> */}
       </div>
     </section>
   )

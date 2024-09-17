@@ -109,7 +109,7 @@ export default function HomePage() {
           </Swiper>
         )}
       </div> */}
-      <News/>
+      {/* <News/> */}
       <About />
     </div>
   );
