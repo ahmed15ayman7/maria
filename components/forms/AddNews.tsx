@@ -103,7 +103,7 @@ export default function AddNewsForm({refetch}:{refetch:()=>void}) {
             </div>
           )}
           <button
-            className="flex items-center gap-3 -bottom-3 left-0 right-0 m-auto w-fit p-[.35rem] rounded-full border border-gray-600 bg-yellow-500 text-white hover:bg-yellow-600 transition"
+            className="flex items-center gap-3 -bottom-3 left-0 right-0 m-auto w-fit p-[.35rem] rounded-full border border-gray-600 bg-gold-500 text-white hover:bg-yellow-600 transition"
             title="Change photo"
             onClick={(e) => {
               e.preventDefault();
@@ -115,7 +115,7 @@ export default function AddNewsForm({refetch}:{refetch:()=>void}) {
         </div>
 
         {/* Cropper Dialog */}
-        <Dialog open={isDialogOpen} onClose={() => setIsDialogOpen(false)} className="relative z-10">
+        <Dialog open={isDialogOpen} onClose={() => setIsDialogOpen(false)} className="relative z-[10000]">
           <div className="fixed inset-0  bg-opacity-50" />
           <div className="fixed inset-0 flex items-center justify-center p-4">
             <Dialog.Panel className="bg-white p-6 rounded-lg">

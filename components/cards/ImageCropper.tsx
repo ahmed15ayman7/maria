@@ -4,10 +4,9 @@ import ReactCrop, { Crop, centerCrop, convertToPixelCrop, makeAspectCrop } from 
 import setCanvasPreview from "./setCanvasPreview";
 import { motion } from "framer-motion";
 
-const ASPECT_RATIO = 1; // Adjust as needed
 const MIN_DIMENSION = 150;
 
-const ImageCropper = ({ updateAvatar, closeModal }: { updateAvatar: (imgSrc: string) => void; closeModal: () => void; }) => {
+const ImageCropper = ({ updateAvatar, closeModal, is9X16 }: { updateAvatar: (imgSrc: string) => void; closeModal: () => void; is9X16?: boolean }) => {
   const imgRef = useRef<HTMLImageElement | null>(null);
   const previewCanvasRef = useRef<HTMLCanvasElement | null>(null);
   const [imgSrc, setImgSrc] = useState<string>("");
@@ -42,6 +41,8 @@ const ImageCropper = ({ updateAvatar, closeModal }: { updateAvatar: (imgSrc: str
 
   const onImageLoad = (e: React.SyntheticEvent<HTMLImageElement>) => {
     const { width, height } = e.currentTarget;
+    
+    const aspectRatio = is9X16 ? 16 / 5 : 1; // Set aspect ratio based on is9X16 prop
     const cropWidthInPercent = (MIN_DIMENSION / width) * 100;
 
     const crop = makeAspectCrop(
@@ -49,7 +50,7 @@ const ImageCropper = ({ updateAvatar, closeModal }: { updateAvatar: (imgSrc: str
         unit: "%",
         width: cropWidthInPercent,
       },
-      ASPECT_RATIO,
+      aspectRatio, // Use the determined aspect ratio here
       width,
       height
     );
@@ -79,7 +80,7 @@ const ImageCropper = ({ updateAvatar, closeModal }: { updateAvatar: (imgSrc: str
             crop={crop}
             onChange={(pixelCrop, percentCrop) => setCrop(percentCrop)}
             keepSelection
-            aspect={ASPECT_RATIO}
+            aspect={is9X16 ? 16 / 5 : undefined} // Set aspect ratio for ReactCrop
             minWidth={MIN_DIMENSION}
           >
             <img

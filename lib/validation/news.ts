@@ -9,3 +9,4 @@ export const newsSchema = z.object({
   });
   
  export type NewsFormInputs = z.infer<typeof newsSchema>;
+ 

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 import InfintyProvider from "../components/providers/InfintyProvider";
-
+import 'react-toastify/dist/ReactToastify.css';
 export const metadata: Metadata = {
   metadataBase: new URL("https://maria.com"),
   title: " مريه - أخبار وآراء",
