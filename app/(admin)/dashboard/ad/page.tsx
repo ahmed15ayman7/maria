@@ -27,7 +27,7 @@ console.log(ads)
   return (
     <div>
       <AdForm refetch={refetch} />
-      <AdSwiper ads={ads} />
+      <AdSwiper ads={ads} isAdmin refetch={refetch}/>
     </div>
   );
 };
