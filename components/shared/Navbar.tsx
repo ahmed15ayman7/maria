@@ -187,6 +187,7 @@ export default function Navbar({ isAdmin }: { isAdmin?: boolean }) {
     { name: "لوحة التحكم", link: "/dashboard" },
     { name: "جميع الاخبار", link: "/dashboard/news" },
     { name: "الاعلانات المحجوزة", link: "/dashboard/feedbacks" },
+    { name: " اضافة اعلان", link: "/dashboard/ad" },
     { name: "المتواصلين", link: "/dashboard/contact" },
   ];
 

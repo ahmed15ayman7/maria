@@ -11,10 +11,15 @@ import { Navigation, Pagination, Autoplay } from "swiper/modules"; // Swiper mod
 import About from "./about/page";
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import News from "./news/NewsClient";
+import AdSwiper from "@/components/shared/AdSwiper";
 
 const fetchNews = async () => {
   const { data } = await axios.get("/api/news");
   return data;
+};
+const fetchAds = async () => {
+  const response = await axios.get("/api/ads");
+  return response.data.ads;
 };
 
 export default function HomePage() {
@@ -22,17 +27,24 @@ export default function HomePage() {
     queryKey: ["news"],
     queryFn: fetchNews,
   });
-
+  const {
+    data: ads,
+    error,
+    isLoading:isLoading2,
+  } = useQuery({
+    queryKey: ["ads"],
+    queryFn: () => fetchAds(),
+  });
   const newsItems = data || [];
   const newsItemsWithImages = newsItems.filter((e: any) => e.imageUrl);
   const newsItemsWithoutImages = newsItems.filter((e: any) => !e.imageUrl);
 
-  if (isLoading) return <Loader />;
-  if (isError) return <ReloadButton />;
-console.log(newsItemsWithImages)
+  if (isLoading||isLoading2) return <Loader />;
+  if (isError||error) return <ReloadButton />;
   return (
     <div className="min-h-screen pt-10 flex flex-col gap-20 items-center justify-center relative">
       <div className="max-w-[100vw] flex flex-col w-full items-center justify-center relative">
+      <AdSwiper ads={ads}/>
         {/* Swiper for news items with images */}
         {newsItemsWithImages&&newsItemsWithImages.length > 0 && (
           <Swiper

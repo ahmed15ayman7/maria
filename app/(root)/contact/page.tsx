@@ -10,7 +10,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { ContactFormInputs, contactSchema } from "@/lib/validation/contact";
 
 export default function Contact() {
-  const { register, handleSubmit, formState: { errors } } = useForm<ContactFormInputs>({
+  const { register, handleSubmit, formState: { errors } ,reset} = useForm<ContactFormInputs>({
     resolver: zodResolver(contactSchema),
   });
   const [loading, setLoading] = useState(false);
@@ -28,6 +28,7 @@ export default function Contact() {
         autoClose: 3000,
       });
       setLoading(false);
+      reset()
     } catch (error) {
       toast.update(loadingToastId, {
         render: "Failed to send message.",
