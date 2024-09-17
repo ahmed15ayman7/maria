@@ -7,7 +7,7 @@ import Ad from '@/lib/models/Ad.model';
 // Helper function to get search params from the URL
 function getSearchParams(url: string) {
   const params = new URL(url).searchParams;
-  return params.get('id'); // We need 'id' from the query
+  return params.get('id'); 
 }
 
 // CREATE and READ API (POST, GET)

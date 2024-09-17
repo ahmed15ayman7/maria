@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
-import Navbar from "@/components/shared/Navbar";
-import Footer from "@/components/shared/Footer";
+
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import Image from "next/image";
 import  localFont  from 'next/font/local';
 const geistSans = localFont({
@@ -33,6 +34,7 @@ export default function RootLayout({
   <div className=" min-h-screen flex justify-center items-center">
        <Image src={"/images/مرية خلفية شفافة.png"} alt='logo' width={100} height={100} className='ml-5 rounded-full shadow-xl fixed top-3 left-3 scale-110' />
     {children}
+    <ToastContainer/>
     </div>
     </body>
     </html>

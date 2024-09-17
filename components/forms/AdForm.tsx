@@ -88,6 +88,7 @@ import { AdFormData, adSchema } from '@/lib/validation/AD';
               >
                 {avatarUrl.current ? "تحميل صوره" : "تعديل الصوره"} <PencilIcon />
               </button>
+              {errors.imageUrl && <p className="text-red-600">{errors.imageUrl.message}</p>}
             </div>
     
             {/* Cropper Dialog */}
