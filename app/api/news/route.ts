@@ -39,11 +39,18 @@ export async function POST(req: Request) {
     if (!body.title || !body.content || !body.author || !body.category) {
       return NextResponse.json({ error: 'All fields are required' }, { status: 400 });
     }
-
-    const newNews = new News(body);
-    await newNews.save();
-
-    return NextResponse.json(newNews, { status: 201 }); // Return the created news with a 201 status
+    if (body._id) {
+      const newNews = await News.findByIdAndUpdate(body._id,body);
+      if (!newNews) {
+        return NextResponse.json({ error: '_id not found' }, { status: 400 });
+      }
+      return NextResponse.json(newNews, { status: 201 });
+    }else{
+      const newNews = new News(body);
+      await newNews.save();
+      
+      return NextResponse.json(newNews, { status: 201 }); // Return the created news with a 201 status
+    }
   } catch (error) {
     console.error('Error creating news:', error);
     return NextResponse.json({ error: 'Failed to create news' }, { status: 500 });
