@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import { useState } from 'react';
 import { toast } from 'react-toastify'; // Import toast from react-toastify
 import 'react-toastify/dist/ReactToastify.css'; // Import CSS for the toast notifications
-import { DeleteOutlined } from '@ant-design/icons'; // Import the delete icon
+import { DeleteOutlined ,EditOutlined} from '@ant-design/icons'; // Import the delete icon
 import Link from 'next/link';
 
 interface NewsCardProps {
@@ -56,9 +56,16 @@ const NewsCard: React.FC<NewsCardProps> = ({ title, content, author, publishedAt
   return (
     <div className="bg-white/10 max-w-[100vm] rounded-lg relative"> {/* Added relative positioning */}
       {isAdmin && (
+        <>
         <div className="absolute top-2 left-2 cursor-pointer" onClick={() => handleDelete(newsId ? newsId : "")}>
           <DeleteOutlined style={{ fontSize: '20px', color: 'red' }} />
         </div>
+        <div className="absolute top-2 left-10 cursor-pointer">
+          <Link href={`/dashboard/news/edit?id=${newsId}`}>
+          <EditOutlined style={{ fontSize: '20px', color: 'orange' }} />
+          </Link>
+        </div>
+        </>
       )}
          <Link href={`/news/item?id=${newsId}`}>
 
