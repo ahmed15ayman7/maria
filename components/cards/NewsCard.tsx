@@ -62,7 +62,7 @@ const NewsCard: React.FC<NewsCardProps> = ({ title, content, author, publishedAt
         </div>
         <div className="absolute top-2 left-10 cursor-pointer">
           <Link href={`/dashboard/news/edit?id=${newsId}`}>
-          <EditOutlined style={{ fontSize: '20px', color: 'orange' }} />
+          <EditOutlined style={{ fontSize: '20px', color: 'white' }} />
           </Link>
         </div>
         </>
