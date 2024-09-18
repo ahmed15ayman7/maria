@@ -1,4 +1,3 @@
-// components/AdSwiper.tsx
 'use client';
 
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -22,29 +21,45 @@ const fetchAds = async () => {
 };
 
 // Delete ad from the API
-export default function AdSwiper({ads,isAdmin,refetch}:{refetch?:()=>void,isAdmin?:boolean,ads:{_id:string,imageUrl:string,redirectUrl:string}[]}) {
-const deleteAd = async (id: string) => {
+export default function AdSwiper({
+  ads,
+  isAdmin,
+  refetch,
+}: {
+  refetch?: () => void;
+  isAdmin?: boolean;
+  ads: { _id: string; imageUrl: string; redirectUrl: string }[];
+}) {
+  const deleteAd = async (id: string) => {
     const loadingToastId = toast.loading('Deleting AD...'); // Show loading toast
-    
-    if (!confirm("Are you sure you want to delete this AD article?")) {
-        toast.dismiss(loadingToastId); // Dismiss the loading toast if the user cancels
-        return;
+
+    if (!confirm('Are you sure you want to delete this AD article?')) {
+      toast.dismiss(loadingToastId); // Dismiss the loading toast if the user cancels
+      return;
     }
-    
+
     try {
-        
-        await axios.delete(`/api/ads?id=${id}`);
+      await axios.delete(`/api/ads?id=${id}`);
 
       // Show success toast notification
-      toast.update(loadingToastId, { render: 'AD deleted successfully!', type: 'success', isLoading: false, autoClose: 3000 });
-refetch&&refetch()
+      toast.update(loadingToastId, {
+        render: 'AD deleted successfully!',
+        type: 'success',
+        isLoading: false,
+        autoClose: 3000,
+      });
+      refetch && refetch();
     } catch (error) {
-      console.error("Error deleting news:", error);
+      console.error('Error deleting news:', error);
       // Show error toast notification
-      toast.update(loadingToastId, { render: 'Failed to delete AD article', type: 'error', isLoading: false, autoClose: 3000 });
-    
+      toast.update(loadingToastId, {
+        render: 'Failed to delete AD article',
+        type: 'error',
+        isLoading: false,
+        autoClose: 3000,
+      });
+    }
   };
-};
 
   return (
     <Swiper
@@ -67,25 +82,35 @@ refetch&&refetch()
       }}
     >
       {ads.map((ad) => (
-        <SwiperSlide key={ad._id} className="relative">
+        <SwiperSlide key={ad._id} className="relative overflow-hidden">
           <a href={ad.redirectUrl} target="_blank" rel="noopener noreferrer">
             <img
               src={ad.imageUrl}
               alt={`Ad ${ad._id}`}
-              className="w-full object-fit rounded-xl h-[50vh] max-sm:h-[20vh]"
+              className="w-full object-cover rounded-xl h-[50vh] max-sm:h-[20vh]"
             />
           </a>
- 
-          {isAdmin&&<button
-            onClick={(e) => {
-              e.stopPropagation(); // Prevent triggering the link click
-              deleteAd(ad._id);
-            }}
-            className="absolute top-2 left-2 bg-white rounded-full p-1 hover:bg-gray-200 transition"
-            title="Delete Ad"
+
+          {/* Label positioned at the top-left corner */}
+          <span
+            className="absolute top-9 w-24 h-10 pt-3   text-center -left-8 bg-gray-900 text-white px-2 py-1 text-sm font-bold -rotate-45"
+            style={{ transformOrigin: 'left top' }}
           >
-            <DeleteOutlined className="text-red-500" />
-          </button>}
+            إعلان
+          </span>
+
+          {isAdmin && (
+            <button
+              onClick={(e) => {
+                e.stopPropagation(); // Prevent triggering the link click
+                deleteAd(ad._id);
+              }}
+              className="absolute top-2 left-10 bg-white rounded-full p-1 hover:bg-gray-200 transition"
+              title="Delete Ad"
+            >
+              <DeleteOutlined className="text-red-500" />
+            </button>
+          )}
         </SwiperSlide>
       ))}
     </Swiper>
