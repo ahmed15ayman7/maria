@@ -8,6 +8,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'; // Import toast styles
 import { RegisterFormInputs, registerSchema } from '@/lib/validation/user';
+import Link from 'next/link';
 
 const { Title } = Typography;
 
@@ -15,7 +16,7 @@ export default function RegisterPage() {
   const router = useRouter();
 
   const {
-    control, // Add control here
+    control,
     handleSubmit,
     reset,
     formState: { errors },
@@ -39,13 +40,13 @@ export default function RegisterPage() {
       if (res.ok) {
         // On success, update the loading toast to show success message
         toast.update(loadingToastId, {
-          render: 'Registration successful!',
+          render: 'Registration successful! Your account is pending approval.',
           type: 'success',
           isLoading: false,
-          autoClose: 3000,
+          autoClose: 5000,
         });
         reset(); // Reset the form
-        router.push('/dashboard'); // Redirect to login
+        router.push('/login'); // Redirect to home or login, but access is restricted until approval
       } else {
         const data = await res.json();
         throw new Error(data.message);
@@ -63,7 +64,7 @@ export default function RegisterPage() {
 
   return (
     <motion.div
-      className="max-w-md mx-auto mt-10 min-w-[500px] max-sm:min-w-[350px]   p-6 rounded-lg shadow-lg "
+      className="max-w-md mx-auto mt-10 min-w-[500px] max-sm:min-w-[350px] p-6 rounded-lg shadow-lg"
       initial={{ opacity: 0, y: 30 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6 }}
@@ -139,6 +140,9 @@ export default function RegisterPage() {
             Register
           </Button>
         </motion.div>
+        <div className="mt-4 text-center">
+        <p className="text-gold-500">Already have an account? <Link href="/login" className="text-gold-500 hover:underline">Login here</Link></p>
+      </div>
       </form>
     </motion.div>
   );

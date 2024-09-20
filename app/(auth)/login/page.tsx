@@ -8,6 +8,7 @@ import * as z from "zod";
 import { motion } from "framer-motion";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Link from "next/link";
 
 const loginSchema = z.object({
   email: z.string().email("Invalid email address").min(1, "Email is required"),
@@ -42,16 +43,35 @@ export default function LoginPage() {
       });
 
       if (res.ok) {
+        const data = await res.json();
+
+        // تحقق مما إذا كان المستخدم معتمدًا
+        if (data.isApproved) {
+          toast.update(loadingToastId, {
+            render: "Login successful!",
+            type: "success",
+            isLoading: false,
+            autoClose: 3000,
+          });
+          router.push("/dashboard");
+        } else {
+          // إذا لم يكن معتمدًا، أظهر رسالة توست للانتظار
+          toast.update(loadingToastId, {
+            render: "Your account is pending approval. Please wait for confirmation.",
+            type: "info",
+            isLoading: false,
+            autoClose: 3000,
+          });
+        }
+      } else {
+        const data = await res.json();
         toast.update(loadingToastId, {
-          render: "Login successful!",
-          type: "success",
+          render: data.message || "Failed to log in. Please try again.",
+          type: "error",
           isLoading: false,
           autoClose: 3000,
         });
-        router.push("/dashboard");
-      } else {
-        const data = await res.json();
-        throw new Error(data.message);
+        
       }
     } catch (error: any) {
       toast.update(loadingToastId, {
@@ -129,6 +149,12 @@ export default function LoginPage() {
             Login
           </Button>
         </motion.div>
+        <div className="text-center mt-4 flex gap-3 justify-center">
+              {"Don't have an account? "}
+          <Link href="/register" className="text-gold-500 hover:underline">
+              {"Register here."}
+          </Link>
+        </div>
       </form>
     </motion.div>
   );

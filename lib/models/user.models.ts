@@ -1,10 +1,11 @@
-import mongoose,{ Schema, Document } from 'mongoose';
+import mongoose, { Schema, Document } from 'mongoose';
 
 export interface IUser extends Document {
   name: string;
   email: string;
   password: string;
   createdAt: Date;
+  isApproved: boolean; // الحقل الجديد
 }
 
 const userSchema = new Schema<IUser>({
@@ -24,6 +25,10 @@ const userSchema = new Schema<IUser>({
   createdAt: {
     type: Date,
     default: Date.now,
+  },
+  isApproved: {
+    type: Boolean,
+    default: false, // بشكل افتراضي، الحسابات غير معتمدة
   },
 });
 
