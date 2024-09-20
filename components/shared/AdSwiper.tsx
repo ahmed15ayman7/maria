@@ -40,8 +40,6 @@ export default function AdSwiper({
 
     try {
       await axios.delete(`/api/ads?id=${id}`);
-
-      // Show success toast notification
       toast.update(loadingToastId, {
         render: 'AD deleted successfully!',
         type: 'success',
@@ -51,7 +49,6 @@ export default function AdSwiper({
       refetch && refetch();
     } catch (error) {
       console.error('Error deleting news:', error);
-      // Show error toast notification
       toast.update(loadingToastId, {
         render: 'Failed to delete AD article',
         type: 'error',
@@ -90,7 +87,6 @@ export default function AdSwiper({
               className="w-full object-cover rounded-xl h-[50vh] max-sm:h-[20vh]"
             />
           </a>
-
           {/* Label positioned at the top-left corner */}
           <span
             className="absolute top-9 w-24 h-10 pt-3   text-center -left-8 bg-gray-900 text-white px-2 py-1 text-sm font-bold -rotate-45"
@@ -98,7 +94,6 @@ export default function AdSwiper({
           >
             إعلان
           </span>
-
           {isAdmin && (
             <button
               onClick={(e) => {
