@@ -1,5 +1,5 @@
 "use client"; // Ensure this component runs on the client side
-import { useQuery, useMutation } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 import { Table, Button, notification } from 'antd';
 import Loader from './Loader';
 import ReloadButton from './reload';
@@ -11,7 +11,7 @@ interface User {
 }
 
 const fetchPendingUsers = async () => {
-  const response = await fetch('/api/users/');
+  const response = await fetch('/api/user');
   if (!response.ok) throw new Error('Failed to fetch users');
   return response.json();
 };
@@ -20,7 +20,7 @@ const AdminsDashboard = () => {
   const { data: users, isLoading, error,refetch } = useQuery<User[]>({queryKey:['pendingUsers'],queryFn:()=> fetchPendingUsers()});
 
   const approve = async (userId: string) => {
-    const response = await fetch(`/api/users/approve?id=${userId}`, {
+    const response = await fetch(`/api/user/approve?id=${userId}`, {
       method: 'POST',
     });
     if (!response.ok) throw new Error('Failed to approve user');
@@ -29,7 +29,7 @@ const AdminsDashboard = () => {
 }
 
 const deleteUser =async (userId: string) => {
-    const response = await fetch(`/api/users/delete?id=${userId}`, {
+    const response = await fetch(`/api/user/delete?id=${userId}`, {
         method: 'DELETE',
     });
     refetch()

@@ -1,4 +1,4 @@
-// app/api/users/pending/route.ts
+// app/api/users/route.ts
 import { NextResponse } from "next/server";
 import User from "@/lib/models/user.models";
 import { connectDB } from "@/mongoose";
