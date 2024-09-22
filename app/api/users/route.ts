@@ -8,7 +8,7 @@ export async function GET() {
 
     await connectDB();
     
-    const users = await User.find({ isApproved: {$in:[false,undefined]} });
+    const users = await User.find({ isApproved: false });
     return NextResponse.json(users);
   }catch(e:any){
       return NextResponse.json({ message: "User not found.::"+e }, { status: 404 });
