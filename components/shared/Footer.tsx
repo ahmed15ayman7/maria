@@ -6,6 +6,8 @@ import axios from 'axios';
 import { FaFacebookF, FaInstagram, FaTiktok, FaTwitter } from 'react-icons/fa'; 
 import { Tooltip } from 'antd';
 import { Loader } from 'lucide-react';
+import { useEffect, useState } from 'react';
+import { WiCloudy, WiDaySunny, WiDaySunnyOvercast, WiFog, WiRain, WiSnow, WiWindy } from 'react-icons/wi';
 
 // تعريف النوع لروابط السوشيال ميديا
 interface SocialLinks {
@@ -20,6 +22,49 @@ const fetchSocialLinks = async (): Promise<any> => {
 };
 
 const Footer: React.FC = () => {
+  const [date, setDate] = useState('');
+  const [weather, setWeather] = useState({ description: '', icon: null, color: '' });
+  const weatherData = {
+    "مشمس": { icon: <WiDaySunny size={24} />, color: '#FFD700' }, // أصفر مشرق
+    "غائم جزئياً": { icon: <WiDaySunnyOvercast size={24} />, color: '#C0C0C0' }, // رمادي فاتح
+    "ماطر": { icon: <WiRain size={24} />, color: '#00BFFF' }, // أزرق فاتح
+    "عاصف": { icon: <WiWindy size={24} />, color: '#87CEEB' }, // أزرق سماوي
+    "ضبابي": { icon: <WiFog size={24} />, color: '#696969' }, // رمادي داكن
+    "صافي": { icon: <WiCloudy size={24} />, color: '#A9A9A9' }, // رمادي غائم
+    "ثلوج": { icon: <WiSnow size={24} />, color: '#ADD8E6' }, // أزرق ثلجي
+  };
+  
+  useEffect(() => {
+
+    const today = new Date();
+    const formattedDate = today.toLocaleDateString('ar-EG', {
+      weekday: 'long',
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+    });
+    setDate(formattedDate);
+
+    // توليد وصف الطقس ودرجة الحرارة بشكل عشوائي
+    const generateRandomWeather = () => {
+      const weatherKeys = Object.keys(weatherData);
+      // اختر وصف طقس عشوائي
+      const randomDescription =
+        weatherKeys[Math.floor(Math.random() * weatherKeys.length)];
+      // توليد درجة حرارة عشوائية بين 10 و 40
+      const randomTemperature = (Math.random() * (40 - 10) + 10).toFixed(1);
+      setWeather({
+        description: `${randomDescription}, ${randomTemperature}°C`,
+        // @ts-ignore
+        icon: weatherData[randomDescription].icon, // الأيقونة المناسبة بناءً على الوصف
+        // @ts-ignore
+        color: weatherData[randomDescription].color, // اللون المناسب بناءً على الوصف
+      });
+    };
+
+    generateRandomWeather();
+  }, []);
+
   const { data: socialLinks, error, isLoading } = useQuery<SocialLinks[]>({queryKey:['socialLinks'], queryFn:()=>fetchSocialLinks()});
 
   if (isLoading) return <Loader/>;
@@ -51,6 +96,13 @@ console.log(socialLinks)
             </a>
           </Tooltip>
         </div>
+        <p className="md:text-base text-sm md:font-normal font-light text-white flex items-center gap-2">
+          {date} | <span className="md:text-base text-sm md:font-normal font-light text-white flex items-center gap-2" style={{ color: weather.color }}>{weather.icon} {weather.description}</span>
+        </p>
+        {/* Copyright */}
+        <p className="md:text-base text-sm md:font-normal font-light text-white">
+          Copyright © 2024 Maria.com
+        </p>
       </div>
     </footer>
   );
