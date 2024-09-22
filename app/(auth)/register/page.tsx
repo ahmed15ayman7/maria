@@ -6,7 +6,7 @@ import { motion } from 'framer-motion';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css'; // Import toast styles
+import 'react-toastify/dist/ReactToastify.css'; // استيراد أنماط التوست
 import { RegisterFormInputs, registerSchema } from '@/lib/validation/user';
 import Link from 'next/link';
 
@@ -25,8 +25,8 @@ export default function RegisterPage() {
   });
 
   const handleRegister = async (values: RegisterFormInputs) => {
-    // Show loading toast while the request is being processed
-    const loadingToastId = toast.loading('Registering user...');
+    // عرض توست تحميل أثناء معالجة الطلب
+    const loadingToastId = toast.loading('جارٍ تسجيل المستخدم...');
 
     try {
       const res = await fetch('/api/register', {
@@ -38,23 +38,23 @@ export default function RegisterPage() {
       });
 
       if (res.ok) {
-        // On success, update the loading toast to show success message
+        // في حالة النجاح، تحديث التوست ليظهر رسالة النجاح
         toast.update(loadingToastId, {
-          render: 'Registration successful! Your account is pending approval.',
+          render: 'تم التسجيل بنجاح! حسابك في انتظار الموافقة.',
           type: 'success',
           isLoading: false,
           autoClose: 5000,
         });
-        reset(); // Reset the form
-        router.push('/login'); // Redirect to home or login, but access is restricted until approval
+        reset(); // إعادة تعيين النموذج
+        router.push('/login'); // إعادة التوجيه إلى صفحة تسجيل الدخول
       } else {
         const data = await res.json();
         throw new Error(data.message);
       }
     } catch (error: any) {
-      // On error, update the loading toast to show error message
+      // في حالة حدوث خطأ، تحديث التوست ليظهر رسالة الخطأ
       toast.update(loadingToastId, {
-        render: error.message || 'Failed to register. Please try again.',
+        render: error.message || 'فشل التسجيل. يرجى المحاولة مرة أخرى.',
         type: 'error',
         isLoading: false,
         autoClose: 3000,
@@ -70,12 +70,12 @@ export default function RegisterPage() {
       transition={{ duration: 0.6 }}
     >
       <Title level={1} className="mb-4 text-center text-gold-500" style={{ color: '#d4aa48' }}>
-        Register
+        التسجيل
       </Title>
 
       <form onSubmit={handleSubmit(handleRegister)} className="space-y-6">
         <div>
-          <label className="block mb-2 text-sm font-bold text-gold-500">Name</label>
+          <label className="block mb-2 text-sm font-bold text-gold-500">الاسم</label>
           <Controller
             name="name"
             control={control}
@@ -90,7 +90,7 @@ export default function RegisterPage() {
         </div>
 
         <div>
-          <label className="block mb-2 text-sm font-bold text-gold-500">Email</label>
+          <label className="block mb-2 text-sm font-bold text-gold-500">البريد الإلكتروني</label>
           <Controller
             name="email"
             control={control}
@@ -106,7 +106,7 @@ export default function RegisterPage() {
         </div>
 
         <div>
-          <label className="block mb-2 text-sm font-bold text-gold-500">Password</label>
+          <label className="block mb-2 text-sm font-bold text-gold-500">كلمة المرور</label>
           <Controller
             name="password"
             control={control}
@@ -121,7 +121,7 @@ export default function RegisterPage() {
         </div>
 
         <div>
-          <label className="block mb-2 text-sm font-bold text-gold-500">Confirm Password</label>
+          <label className="block mb-2 text-sm font-bold text-gold-500">تأكيد كلمة المرور</label>
           <Controller
             name="confirmPassword"
             control={control}
@@ -137,12 +137,12 @@ export default function RegisterPage() {
 
         <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
           <Button htmlType="submit" block className="bg-gold-500 hover:bg-gold-500/80 border-none">
-            Register
+            تسجيل
           </Button>
         </motion.div>
         <div className="mt-4 text-center">
-        <p className="text-gold-500">Already have an account? <Link href="/login" className="text-gold-500 hover:underline">Login here</Link></p>
-      </div>
+          <p className="text-gold-500">لديك حساب بالفعل؟ <Link href="/login" className="text-gold-500 hover:underline">تسجيل الدخول هنا</Link></p>
+        </div>
       </form>
     </motion.div>
   );

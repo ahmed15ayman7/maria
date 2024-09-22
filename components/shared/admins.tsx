@@ -12,7 +12,7 @@ interface User {
 }
 
 const fetchPendingUsers = async () => {
-  const response = await fetch('/api/users/pending'); // Ensure you have this endpoint set up
+  const response = await fetch('/api/users/pending');
   if (!response.ok) throw new Error('Failed to fetch users');
   return response.json();
 };

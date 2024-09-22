@@ -11,8 +11,8 @@ import "react-toastify/dist/ReactToastify.css";
 import Link from "next/link";
 
 const loginSchema = z.object({
-  email: z.string().email("Invalid email address").min(1, "Email is required"),
-  password: z.string().min(6, "Password must be at least 6 characters long"),
+  email: z.string().email("عنوان البريد الإلكتروني غير صالح").min(1, "البريد الإلكتروني مطلوب"),
+  password: z.string().min(6, "يجب أن تتكون كلمة المرور من 6 أحرف على الأقل"),
 });
 
 type LoginFormInputs = z.infer<typeof loginSchema>;
@@ -31,7 +31,7 @@ export default function LoginPage() {
   });
 
   const handleLogin = async (values: LoginFormInputs) => {
-    const loadingToastId = toast.loading("Logging in...");
+    const loadingToastId = toast.loading("جاري تسجيل الدخول...");
 
     try {
       const res = await fetch("/api/login", {
@@ -48,7 +48,7 @@ export default function LoginPage() {
         // تحقق مما إذا كان المستخدم معتمدًا
         if (data.isApproved) {
           toast.update(loadingToastId, {
-            render: "Login successful!",
+            render: "تم تسجيل الدخول بنجاح!",
             type: "success",
             isLoading: false,
             autoClose: 3000,
@@ -57,7 +57,7 @@ export default function LoginPage() {
         } else {
           // إذا لم يكن معتمدًا، أظهر رسالة توست للانتظار
           toast.update(loadingToastId, {
-            render: "Your account is pending approval. Please wait for confirmation.",
+            render: "حسابك قيد الانتظار للموافقة. يرجى الانتظار.",
             type: "info",
             isLoading: false,
             autoClose: 3000,
@@ -66,7 +66,7 @@ export default function LoginPage() {
       } else {
         const data = await res.json();
         toast.update(loadingToastId, {
-          render: data.message || "Failed to log in. Please try again.",
+          render: data.message || "فشل تسجيل الدخول. يرجى المحاولة مرة أخرى.",
           type: "error",
           isLoading: false,
           autoClose: 3000,
@@ -75,7 +75,7 @@ export default function LoginPage() {
       }
     } catch (error: any) {
       toast.update(loadingToastId, {
-        render: error.message || "Failed to log in. Please try again.",
+        render: error.message || "فشل تسجيل الدخول. يرجى المحاولة مرة أخرى.",
         type: "error",
         isLoading: false,
         autoClose: 3000,
@@ -93,13 +93,13 @@ export default function LoginPage() {
         level={1}
         className="mb-4 text-center text-gold-500"
         style={{ color: "#d4aa48" }}>
-        Login
+        تسجيل الدخول
       </Title>
 
       <form onSubmit={handleSubmit(handleLogin)} className="space-y-6">
         <div>
           <label className="block mb-2 text-sm font-bold text-gold-500">
-            Email
+            البريد الإلكتروني
           </label>
           <Controller
             name="email"
@@ -121,7 +121,7 @@ export default function LoginPage() {
 
         <div>
           <label className="block mb-2 text-sm font-bold text-gold-500">
-            Password
+            كلمة المرور
           </label>
           <Controller
             name="password"
@@ -146,13 +146,13 @@ export default function LoginPage() {
             htmlType="submit"
             block
             className="bg-gold-500 border-none">
-            Login
+            تسجيل الدخول
           </Button>
         </motion.div>
         <div className="text-center mt-4 flex gap-3 justify-center">
-              {"Don't have an account? "}
+              {"ليس لديك حساب؟ "}
           <Link href="/register" className="text-gold-500 hover:underline">
-              {"Register here."}
+              {"سجل هنا."}
           </Link>
         </div>
       </form>
