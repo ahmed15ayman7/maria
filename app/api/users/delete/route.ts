@@ -17,6 +17,5 @@ export async function DELETE(req: Request) {
   if (!user) {
     return NextResponse.json({ message: "User not found." }, { status: 404 });
   }
-
   return NextResponse.json({ message: "User deleted successfully." }, { status: 200 });
 }
