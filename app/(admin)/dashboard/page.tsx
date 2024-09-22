@@ -1,6 +1,7 @@
+"use client"
 import AdminSocialLinks from '@/components/shared/AdminSocialLinks'
 import Dashboard from '@/components/shared/Dashboard'
-import AdminDashboard from '@/components/shared/admins'
+import AdminsDashboard from '@/components/shared/admins'
 import React from 'react'
 
 const page = () => {
@@ -8,7 +9,11 @@ const page = () => {
     <div className=" min-h-screen">
       <Dashboard/>
       <AdminSocialLinks/>
-      <AdminDashboard/>
+      <br/>
+      <br/>
+      <div className="p-5">
+      <AdminsDashboard/>
+      </div>
     </div>
   )
 }
