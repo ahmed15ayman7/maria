@@ -6,6 +6,6 @@ import { connectDB } from "@/mongoose";
 export async function GET() {
   await connectDB();
   
-  const users = await User.find({ isApproved: false }); // Adjust query as needed
+  const users = await User.find({ isApproved: {$in:[false,undefined]} }); // Adjust query as needed
   return NextResponse.json(users);
 }
